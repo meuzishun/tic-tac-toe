@@ -32,8 +32,10 @@ const events = (function() {
 })();
 
 const gameboard = (function() {
-    const grid = document.querySelector('.gameboard');
+    const gameContainer = document.querySelector('.game-container')
+    const grid = gameContainer.querySelector('.gameboard');
     const cells = grid.querySelectorAll('.cell');
+    const newGameBtn = gameContainer.querySelector('.newGame-btn');
     const XsOs = new Array(9).fill('');
     const letters = ['X', 'O'];
     let plays = 0;
@@ -61,8 +63,13 @@ const gameboard = (function() {
         _render();
         grid.addEventListener('click', addLetter);
     }
+
+    function newGame() {
+        clearBoard();
+    }
     
     grid.addEventListener('click', addLetter);
+    newGameBtn.addEventListener('click', newGame);
 
     events.on('winnerFound', (combo) => {
         console.log(combo);
