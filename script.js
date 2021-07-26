@@ -35,6 +35,7 @@ const gameboard = (function() {
     const gameContainer = document.querySelector('.game-container')
     const grid = gameContainer.querySelector('.gameboard');
     const cells = grid.querySelectorAll('.cell');
+    const lines = grid.querySelectorAll('.row, .column, .diagonal');
     const newGameBtn = gameContainer.querySelector('.newGame-btn');
     const XsOs = new Array(9).fill('');
     const letters = ['X', 'O'];
@@ -61,18 +62,34 @@ const gameboard = (function() {
         XsOs.fill('');
         plays = 0;
         _render();
+        lines.forEach(line => {
+            if (!line.classList.contains('hide')) {
+                line.classList.add('hide');
+            }
+        });
         grid.addEventListener('click', addLetter);
     }
 
     function newGame() {
         clearBoard();
     }
+
+    function buttonStateChange(evt) {
+        evt.target.classList.toggle('pressed');
+    }
     
     grid.addEventListener('click', addLetter);
     newGameBtn.addEventListener('click', newGame);
+    newGameBtn.addEventListener('mousedown', buttonStateChange);
+    newGameBtn.addEventListener('mouseup', buttonStateChange);
 
     events.on('winnerFound', (combo) => {
         console.log(combo);
+        lines.forEach(line => {
+            if (line.classList.contains(combo)) {
+                line.classList.remove('hide');
+            }
+        });
     });
 
     events.on('gameOver', () => {
@@ -103,7 +120,7 @@ const gameplay = (function() {
         const winningCombos = {
             topRow: [data[0], data[1], data[2]],
             middleRow: [data[3], data[4], data[5]],
-            bottumRow: [data[6], data[7], data[8]],
+            bottomRow: [data[6], data[7], data[8]],
             leftColumn: [data[0], data[3], data[6]],
             centerColumn: [data[1], data[4], data[7]],
             rightColumn: [data[2], data[5], data[8]],

@@ -54,11 +54,16 @@ body {
 						background-color: rgb(95, 199, 95);
 						color: white;
 					}
+
+					.pressed {
+
+					}
 				}
 
 				.gameboard {
 					width: 65%;
 					height: 70%;
+					position: relative;
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
 					grid-template-rows: repeat(3, 1fr);
@@ -66,10 +71,85 @@ body {
 					.cell {
 						display: grid;
 						place-content: center;
-						font-size: 6rem;
+						font-size: 4rem;
 						border: 1px solid black;
 					}
+					
+					.overlay {
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						z-index: -1;
+
+						.rows, .columns, .diagonals {
+							position: absolute;
+							width: 100%;
+							height: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: space-around;
+						}
+						
+						.rows {
+							flex-direction: column;
+							
+							.row {
+								width: 90%;
+								height: 4px;
+								background-color: blue;
+
+							}
+
+							.hide {
+								background-color: rgba(255, 255, 255, 0);
+							}
+						}
+
+						.columns {
+							flex-direction: row;
+
+							.column {
+								width: 4px;
+								height: 90%;
+								background-color: blue;
+
+							}
+
+							.hide {
+								background-color: rgba(255, 255, 255, 0);
+							}
+						}
+
+						.diagonals {
+							flex-direction: row;
+							position: relative;
+							
+							.diagonal {
+								width: 115%;
+								height: 4px;
+								background-color: blue;
+								position: absolute
+							}
+							
+							.leftRightDiagonal {
+								transform: rotateZ(43deg) ;
+							}
+							
+							.rightleftDiagonal {
+								transform: rotateZ(-43deg);
+							}
+							
+							.hide {
+								background-color: rgba(255, 255, 255, 0);
+							}
+						}
+
+						.show {
+							display: block;
+						}
+					}
 				}
+				
 			}
 		}
 

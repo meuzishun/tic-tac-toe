@@ -61,6 +61,7 @@ body .main-wrapper main section.game-container .button-container .newGame-btn {
 body .main-wrapper main section.game-container .gameboard {
   width: 65%;
   height: 70%;
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -69,8 +70,80 @@ body .main-wrapper main section.game-container .gameboard {
 body .main-wrapper main section.game-container .gameboard .cell {
   display: grid;
   place-content: center;
-  font-size: 6rem;
+  font-size: 4rem;
   border: 1px solid black;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .rows, body .main-wrapper main section.game-container .gameboard .overlay .columns, body .main-wrapper main section.game-container .gameboard .overlay .diagonals {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .rows {
+  flex-direction: column;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .rows .row {
+  width: 90%;
+  height: 4px;
+  background-color: blue;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .rows .hide {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .columns {
+  flex-direction: row;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .columns .column {
+  width: 4px;
+  height: 90%;
+  background-color: blue;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .columns .hide {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .diagonals {
+  flex-direction: row;
+  position: relative;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .diagonals .diagonal {
+  width: 115%;
+  height: 4px;
+  background-color: blue;
+  position: absolute;
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .diagonals .leftRightDiagonal {
+  transform: rotateZ(43deg);
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .diagonals .rightleftDiagonal {
+  transform: rotateZ(-43deg);
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .diagonals .hide {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+body .main-wrapper main section.game-container .gameboard .overlay .show {
+  display: block;
 }
 
 body .main-wrapper footer.main-footer {
