@@ -30,8 +30,8 @@ body .main-wrapper main {
 }
 
 body .main-wrapper main section.game-container {
-  width: 80%;
-  height: 80%;
+  width: 720px;
+  height: 490px;
   border: 1px dotted black;
   display: flex;
   justify-content: center;
