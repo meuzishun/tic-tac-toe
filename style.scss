@@ -16,6 +16,7 @@ body {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			justify-content: center;
 
 			h1 {
 				font-size: 3rem;
@@ -30,15 +31,34 @@ body {
 
 			section.game-container {
 				width: 720px;
-				height: 490px;
+				height: 100%;
 				border: 1px dotted black;
 				display: flex;
-				justify-content: center;
+				flex-direction: column;
+				justify-content: space-around;
 				align-items: center;
+
+				.button-container {
+					display: flex;
+					flex-direction: row;
+					width: 100%;
+					justify-content: space-evenly;
+
+					button {
+						padding: 0.5rem 1rem;
+						border: none;
+						border-radius: 0.3rem;
+					}
+					
+					.newGame-btn {
+						background-color: rgb(95, 199, 95);
+						color: white;
+					}
+				}
 
 				.gameboard {
 					width: 65%;
-					height: 90%;
+					height: 70%;
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
 					grid-template-rows: repeat(3, 1fr);

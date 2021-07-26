@@ -16,6 +16,7 @@ body .main-wrapper header.main-header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 body .main-wrapper header.main-header h1 {
@@ -31,16 +32,35 @@ body .main-wrapper main {
 
 body .main-wrapper main section.game-container {
   width: 720px;
-  height: 490px;
+  height: 100%;
   border: 1px dotted black;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+}
+
+body .main-wrapper main section.game-container .button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+body .main-wrapper main section.game-container .button-container button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+body .main-wrapper main section.game-container .button-container .newGame-btn {
+  background-color: #5fc75f;
+  color: white;
 }
 
 body .main-wrapper main section.game-container .gameboard {
   width: 65%;
-  height: 90%;
+  height: 70%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
