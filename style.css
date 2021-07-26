@@ -24,7 +24,7 @@ body .main-wrapper header.main-header h1 {
 }
 
 body .main-wrapper main {
-  height: 80%;
+  height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +60,7 @@ body .main-wrapper main section.game-container .button-container .newGame-btn {
 
 body .main-wrapper main section.game-container .gameboard {
   width: 65%;
-  height: 70%;
+  height: 60%;
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -90,6 +90,10 @@ body .main-wrapper main section.game-container .gameboard .overlay .rows, body .
   justify-content: space-around;
 }
 
+body .main-wrapper main section.game-container .gameboard .overlay .row, body .main-wrapper main section.game-container .gameboard .overlay .column, body .main-wrapper main section.game-container .gameboard .overlay .diagonal {
+  background-color: black;
+}
+
 body .main-wrapper main section.game-container .gameboard .overlay .rows {
   flex-direction: column;
 }
@@ -97,11 +101,10 @@ body .main-wrapper main section.game-container .gameboard .overlay .rows {
 body .main-wrapper main section.game-container .gameboard .overlay .rows .row {
   width: 90%;
   height: 4px;
-  background-color: blue;
 }
 
 body .main-wrapper main section.game-container .gameboard .overlay .rows .hide {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 body .main-wrapper main section.game-container .gameboard .overlay .columns {
@@ -111,11 +114,10 @@ body .main-wrapper main section.game-container .gameboard .overlay .columns {
 body .main-wrapper main section.game-container .gameboard .overlay .columns .column {
   width: 4px;
   height: 90%;
-  background-color: blue;
 }
 
 body .main-wrapper main section.game-container .gameboard .overlay .columns .hide {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 body .main-wrapper main section.game-container .gameboard .overlay .diagonals {
@@ -126,7 +128,6 @@ body .main-wrapper main section.game-container .gameboard .overlay .diagonals {
 body .main-wrapper main section.game-container .gameboard .overlay .diagonals .diagonal {
   width: 115%;
   height: 4px;
-  background-color: blue;
   position: absolute;
 }
 
@@ -139,14 +140,18 @@ body .main-wrapper main section.game-container .gameboard .overlay .diagonals .r
 }
 
 body .main-wrapper main section.game-container .gameboard .overlay .diagonals .hide {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 body .main-wrapper main section.game-container .gameboard .overlay .show {
   display: block;
 }
 
-body .main-wrapper footer.main-footer {
-  height: 10%;
+body .main-wrapper main section.game-container .message-display {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 3rem;
 }
 /*# sourceMappingURL=style.css.map */

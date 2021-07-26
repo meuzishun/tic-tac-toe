@@ -24,7 +24,7 @@ body {
 		}
 
 		main {
-			height: 80%;
+			height: 90%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -62,7 +62,7 @@ body {
 
 				.gameboard {
 					width: 65%;
-					height: 70%;
+					height: 60%;
 					position: relative;
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
@@ -89,6 +89,10 @@ body {
 							align-items: center;
 							justify-content: space-around;
 						}
+
+						.row, .column, .diagonal {
+							background-color: black;
+						}
 						
 						.rows {
 							flex-direction: column;
@@ -96,12 +100,10 @@ body {
 							.row {
 								width: 90%;
 								height: 4px;
-								background-color: blue;
-
 							}
 
 							.hide {
-								background-color: rgba(255, 255, 255, 0);
+								background-color: rgba(0, 0, 0, 0);
 							}
 						}
 
@@ -111,12 +113,10 @@ body {
 							.column {
 								width: 4px;
 								height: 90%;
-								background-color: blue;
-
 							}
 
 							.hide {
-								background-color: rgba(255, 255, 255, 0);
+								background-color: rgba(0, 0, 0, 0);
 							}
 						}
 
@@ -127,8 +127,7 @@ body {
 							.diagonal {
 								width: 115%;
 								height: 4px;
-								background-color: blue;
-								position: absolute
+								position: absolute;
 							}
 							
 							.leftRightDiagonal {
@@ -140,7 +139,7 @@ body {
 							}
 							
 							.hide {
-								background-color: rgba(255, 255, 255, 0);
+								background-color: rgba(0, 0, 0, 0);
 							}
 						}
 
@@ -150,11 +149,14 @@ body {
 					}
 				}
 				
+				.message-display {
+					width: 100%;
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					font-size: 3rem;
+				}
 			}
-		}
-
-		footer.main-footer {
-			height: 10%;
 		}
 	}
 }

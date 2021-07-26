@@ -31,12 +31,17 @@ const events = (function() {
 
 })();
 
+
+
+
 const gameboard = (function() {
     const gameContainer = document.querySelector('.game-container')
     const grid = gameContainer.querySelector('.gameboard');
     const cells = grid.querySelectorAll('.cell');
     const lines = grid.querySelectorAll('.row, .column, .diagonal');
     const newGameBtn = gameContainer.querySelector('.newGame-btn');
+    const messageDisplay = gameContainer.querySelector('.message-display')
+
     const XsOs = new Array(9).fill('');
     const letters = ['X', 'O'];
     let plays = 0;
@@ -103,6 +108,9 @@ const gameboard = (function() {
     };
 
 })();
+
+
+
 
 const gameplay = (function() {
     function checkGameState(data) {
