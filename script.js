@@ -67,7 +67,7 @@ const gameboard = (function() {
     events.on('winnerFound', (combo) => {
         console.log(combo);
     });
-    
+
     events.on('gameOver', () => {
         console.log('game over');
         grid.removeEventListener('click', addLetter);
@@ -109,20 +109,7 @@ const gameplay = (function() {
                 events.emit('winnerFound', combo);
                 events.emit('gameOver', data);
             }
-            // if (winningCombos[combo].every(item => item === 'O')) {
-            //     events.emit('winnerFound', winningCombos[combo]);
-            // }
         }
-
-        // const topRow = [data[0], data[1], data[2]];
-        // const middleRow = [data[3], data[4], data[5]];
-        // const bottumRow = [data[6], data[7], data[8]];
-        // const leftColumn = [data[0], data[3], data[6]];
-        // const centerColumn = [data[1], data[4], data[7]];
-        // const rightColumn = [data[2], data[5], data[8]];
-        // const leftRightDiagonal = [data[0], data[4], data[8]];
-        // const rightleftDiagonal = [data[2], data[4], data[6]];
-
 
     }
     
