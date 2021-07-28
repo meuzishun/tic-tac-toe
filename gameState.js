@@ -41,25 +41,22 @@ const gameState = (function() {
             events.emit('gameOver', null);
         }
     }
-    
-    function checkGameState() {
-        checkForWinner();
-        checkBoardFilled();
-    }
 
     function processClick(index) {
         const marker = getMarker();
         updateGameBoardData(index, marker);
         plays++;
-        checkGameState();
+        checkForWinner();
+        checkBoardFilled();
     }
 
     function resetEntries() {
         boardData.fill('');
         events.emit('boardDataChanged', boardData);
+        plays = 0;
     }
 
     events.on('gameboardClicked', processClick);
-    events.on('clearBoard', resetEntries);
+    events.on('startNewGame', resetEntries);
 
 })();

@@ -20,6 +20,6 @@ const resultsOverlay = (function() {
     }
 
     events.on('rowOfThree', showWinningLine);
-    events.on('clearBoard', hideAllLines);
+    events.on('startNewGame', hideAllLines);
     
 })();

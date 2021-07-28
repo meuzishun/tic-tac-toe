@@ -14,23 +14,18 @@ const gameboard = (function() {
         });
     }
     
-    function clearBoard() {
-        events.emit('clearBoard', null);
-    }
-
-    function endGame() {
+    function disableBoardClicks() {
         gameboard.removeEventListener('click', handleCellClick);
     }
-
-    function newGame() {
-        clearBoard();
+    
+    function enableBoardClicks() {
         gameboard.addEventListener('click', handleCellClick);
     }
     
-    gameboard.addEventListener('click', handleCellClick);
-
     events.on('boardDataChanged', mapDataToBoard);
-    events.on('gameOver', endGame);
-    events.on('startNewGame', newGame);
+    events.on('gameOver', disableBoardClicks);
+    events.on('startNewGame', enableBoardClicks);
+
+    gameboard.addEventListener('click', handleCellClick);
 
 })();

@@ -1,6 +1,10 @@
 const events = (function() {
     const _events = {};
 
+    function printEvents() {
+        console.log(_events);
+    }
+
     function on(eventName, fn) {
         _events[eventName] = _events[eventName] || [];
         _events[eventName].push(fn);
@@ -26,7 +30,8 @@ const events = (function() {
     return {
         on,
         off,
-        emit
+        emit,
+        printEvents
     };
 
 })();
