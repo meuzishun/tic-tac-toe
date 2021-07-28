@@ -2,7 +2,7 @@ const gameMessages = (function() {
     const gameContainer = document.querySelector('.game-container');
     const messageDisplay = gameContainer.querySelector('.message-display');
 
-    function declareWinner(winner) {
+    function displayResults(winner) {
         if (!winner) {
             messageDisplay.textContent = `It's a draw`;
         } else {
@@ -15,6 +15,6 @@ const gameMessages = (function() {
     }
 
     events.on('startNewGame', clearDisplay);
-    events.on('winnerFound', declareWinner);
+    events.on('winnerFound', displayResults);
 
 })();

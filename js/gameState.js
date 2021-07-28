@@ -46,8 +46,8 @@ const gameState = (function() {
         const marker = getMarker();
         updateGameBoardData(index, marker);
         plays++;
-        checkForWinner();
         checkBoardFilled();
+        checkForWinner();
     }
 
     function resetEntries() {
