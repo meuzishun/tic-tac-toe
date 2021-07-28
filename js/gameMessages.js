@@ -14,7 +14,7 @@ const gameMessages = (function() {
         messageDisplay.textContent = '';
     }
 
-    events.on('clearBoard', clearDisplay);
+    events.on('startNewGame', clearDisplay);
     events.on('winnerFound', declareWinner);
 
 })();
