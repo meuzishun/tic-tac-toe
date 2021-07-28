@@ -6,71 +6,64 @@ const gameboard = (function() {
     const newGameBtn = gameContainer.querySelector('.newGame-btn');
     const messageDisplay = gameContainer.querySelector('.message-display');
     
-    function _render(boardData) {
+    function handleCellClick(evt) {
+        let cellIndex = [...cells].indexOf(evt.target);
+        events.emit('gameboardClicked', cellIndex);
+    }
+
+    function mapDataToBoard(boardData) {
         boardData.forEach((entry, index) => {
             cells[index].textContent = entry;
         });
     }
-    
-    events.on('boardDataChanged', _render);
-    events.on('winnerFound', endGame);
-    
-    function handleCellClick(evt) {
-        let elem = evt.target;
-        let index = [...cells].indexOf(elem);
-        events.emit('gameboardClicked', index);
-    }
 
-    function declareWinner(winner) {
-        messageDisplay.textContent = `${winner} wins!`;
-    }
-    
-    function clearBoard() {
-        XsOs.fill('');
-        plays = 0;
-        _render();
+    function showWinningLine(lineName) {
         lines.forEach(line => {
-            if (!line.classList.contains('hide')) {
-                line.classList.add('hide');
-            }
-        });
-        gameboard.addEventListener('click', handleCellClick);
-    }
-
-    function newGame() {
-        clearBoard();
-    }
-
-    function endGame(obj) {
-        showWinningLine(obj.combo);
-        declareWinner(obj.marker);
-    }
-
-    function buttonStateChange(evt) {
-        evt.target.classList.toggle('pressed');
-    }
-    
-    gameboard.addEventListener('click', handleCellClick);
-    newGameBtn.addEventListener('click', newGame);
-    newGameBtn.addEventListener('mousedown', buttonStateChange);
-    newGameBtn.addEventListener('mouseup', buttonStateChange);
-
-    function showWinningLine(combo) {
-        lines.forEach(line => {
-            if (line.classList.contains(combo)) {
+            if (line.classList.contains(lineName)) {
                 line.classList.remove('hide');
             }
         });
     }
 
-    events.on('gameOver', () => {
-        console.log('game over');
-        gameboard.removeEventListener('click', handleCellClick);
-    });
+    function hideAllLines() {
+        lines.forEach(line => {
+            if (!line.classList.contains('hide')) {
+                line.classList.add('hide');
+            }
+        });
+    }
+
+    function declareWinner(winner) {
+        if (!winner) {
+            messageDisplay.textContent = `It's a draw`;
+        } else {
+            messageDisplay.textContent = `${winner} wins!`;
+        }
+    }
     
-    return {
-        handleCellClick,
-        clearBoard
-    };
+    function clearBoard() {
+        events.emit('clearBoard', null);
+        hideAllLines();
+        messageDisplay.textContent = '';
+    }
+
+    function endGame() {
+        gameboard.removeEventListener('click', handleCellClick);
+        newGameBtn.classList.remove('hide');
+    }
+
+    function newGame() {
+        clearBoard();
+        gameboard.addEventListener('click', handleCellClick);
+        newGameBtn.classList.add('hide');
+    }
+    
+    gameboard.addEventListener('click', handleCellClick);
+    newGameBtn.addEventListener('click', newGame);
+
+    events.on('boardDataChanged', mapDataToBoard);
+    events.on('rowOfThree', showWinningLine)
+    events.on('winnerFound', declareWinner);
+    events.on('gameOver', endGame);
 
 })();

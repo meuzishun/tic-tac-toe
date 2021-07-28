@@ -44,6 +44,7 @@ body .main-wrapper main section.game-container .button-container {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 5%;
   justify-content: space-evenly;
 }
 
@@ -56,6 +57,10 @@ body .main-wrapper main section.game-container .button-container button {
 body .main-wrapper main section.game-container .button-container .newGame-btn {
   background-color: #5fc75f;
   color: white;
+}
+
+body .main-wrapper main section.game-container .button-container .hide {
+  display: none;
 }
 
 body .main-wrapper main section.game-container .gameboard {
@@ -149,6 +154,7 @@ body .main-wrapper main section.game-container .gameboard .overlay .show {
 
 body .main-wrapper main section.game-container .message-display {
   width: 100%;
+  height: 10%;
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -3,42 +3,19 @@ const gameState = (function() {
     const letters = ['X', 'O'];
     let plays = 0;
 
-    
-
     function getMarker() {
         return letters[plays % 2];
     }
-
-    function play(index) {
-        const marker = getMarker();
-        updateGameBoardData(index, marker);
-        plays++;
-        // checkForWinner();
-        checkGameState();
-    }
     
     function updateGameBoardData(index, marker) {
-        boardData[index] = marker;
-        events.emit('boardDataChanged', boardData);
-    }
-
-    function checkGameState() {
-        // checkBoardFilled(data);
-
-        const combo = checkForWinner();
-        if (combo) {
-            events.emit('winnerFound', combo);
-        }
-    }
-
-    function checkBoardFilled(data) {
-        if (data.every(item => item !== '')) {
-            events.emit('gameOver', data);
+        if (boardData[index] === '') {
+            boardData[index] = marker;
+            events.emit('boardDataChanged', boardData);
         }
     }
 
     function checkForWinner() {
-        const winningCombos = {
+        const winningLines = {
             topRow: [boardData[0], boardData[1], boardData[2]],
             middleRow: [boardData[3], boardData[4], boardData[5]],
             bottomRow: [boardData[6], boardData[7], boardData[8]],
@@ -49,15 +26,40 @@ const gameState = (function() {
             rightleftDiagonal: [boardData[2], boardData[4], boardData[6]]
         };
 
-        for (const combo in winningCombos) {
-            if (winningCombos[combo].every((item, index, array) => item !== '' && item === array[0])) {
-                return { combo, marker: winningCombos[combo][0] };
+        for (const lineName in winningLines) {
+            if (winningLines[lineName].every((item, index, array) => item !== '' && item === array[0])) {
+                events.emit('rowOfThree', lineName);
+                events.emit('winnerFound', winningLines[lineName][0]);
+                events.emit('gameOver', null);
             }
         }
     }
-
-    events.on('gameboardClicked', play);
     
-    events.on('playPlayed', checkGameState);
+    function checkBoardFilled() {
+        if (boardData.every(item => item !== '')) {
+            events.emit('winnerFound', null);
+            events.emit('gameOver', null);
+        }
+    }
+    
+    function checkGameState() {
+        checkForWinner();
+        checkBoardFilled();
+    }
+
+    function processClick(index) {
+        const marker = getMarker();
+        updateGameBoardData(index, marker);
+        plays++;
+        checkGameState();
+    }
+
+    function resetEntries() {
+        boardData.fill('');
+        events.emit('boardDataChanged', boardData);
+    }
+
+    events.on('gameboardClicked', processClick);
+    events.on('clearBoard', resetEntries);
 
 })();
