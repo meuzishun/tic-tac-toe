@@ -6,20 +6,20 @@ const resultsOverlay = (function() {
     function showWinningLine(lineName) {
         lines.forEach(line => {
             if (line.classList.contains(lineName)) {
-                line.classList.remove('hide');
+                line.classList.remove('hideLine');
             }
         });
     }
 
     function hideAllLines() {
         lines.forEach(line => {
-            if (!line.classList.contains('hide')) {
-                line.classList.add('hide');
+            if (!line.classList.contains('hideLine')) {
+                line.classList.add('hideLine');
             }
         });
     }
 
     events.on('rowOfThree', showWinningLine);
-    events.on('startNewGame', hideAllLines);
+    events.on('newGame', hideAllLines);
     
 })();

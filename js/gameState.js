@@ -61,6 +61,6 @@ const gameState = (function() {
     }
 
     events.on('gameboardClicked', processClick);
-    events.on('startNewGame', resetEntries);
+    events.on('newGame', resetEntries);
 
 })();

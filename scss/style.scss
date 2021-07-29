@@ -20,6 +20,7 @@ body {
 
 			h1 {
 				font-size: 3rem;
+				font-weight: normal;
 			}
 		}
 
@@ -30,7 +31,7 @@ body {
 			align-items: center;
 
 			section.game-container {
-				width: 720px;
+				width: 100%;
 				height: 100%;
 				border: 1px dotted black;
 				display: flex;
@@ -53,8 +54,18 @@ body {
 						border-radius: 0.3rem;
 					}
 					
+					.startGame-btn {
+						background-color: rgb(95, 116, 199);
+						color: white;
+					}
+					
 					.newGame-btn {
 						background-color: rgb(95, 199, 95);
+						color: white;
+					}
+
+					.rematch-btn {
+						background-color: rgb(199, 95, 95);
 						color: white;
 					}
 
@@ -64,9 +75,10 @@ body {
 				}
 
 				.gameboard {
-					width: 65%;
-					max-width: 500px;
+					width: 60%;
+					max-width: 400px;
 					height: 60%;
+					max-height: 400px;
 					position: relative;
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
@@ -106,7 +118,7 @@ body {
 								height: 4px;
 							}
 
-							.hide {
+							.hideLine {
 								background-color: rgba(0, 0, 0, 0);
 							}
 						}
@@ -119,7 +131,7 @@ body {
 								height: 90%;
 							}
 
-							.hide {
+							.hideLine {
 								background-color: rgba(0, 0, 0, 0);
 							}
 						}
@@ -142,7 +154,7 @@ body {
 								transform: rotateZ(-43deg);
 							}
 							
-							.hide {
+							.hideLine {
 								background-color: rgba(0, 0, 0, 0);
 							}
 						}
@@ -151,6 +163,10 @@ body {
 							display: block;
 						}
 					}
+				}
+
+				.hide {
+					display: none;
 				}
 				
 				.message-display {

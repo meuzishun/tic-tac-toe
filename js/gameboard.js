@@ -2,6 +2,11 @@ const gameboard = (function() {
     const gameContainer = document.querySelector('.game-container');
     const gameboard = gameContainer.querySelector('.gameboard');
     const cells = gameboard.querySelectorAll('.cell');
+
+    function showGameboard() {
+        gameboard.classList.remove('hide');
+        gameboard.addEventListener('click', handleCellClick);
+    }
     
     function handleCellClick(evt) {
         let cellIndex = [...cells].indexOf(evt.target);
@@ -22,10 +27,9 @@ const gameboard = (function() {
         gameboard.addEventListener('click', handleCellClick);
     }
     
+    events.on('startGame', showGameboard);
     events.on('boardDataChanged', mapDataToBoard);
     events.on('gameOver', disableBoardClicks);
-    events.on('startNewGame', enableBoardClicks);
-
-    gameboard.addEventListener('click', handleCellClick);
+    events.on('newGame', enableBoardClicks);
 
 })();
