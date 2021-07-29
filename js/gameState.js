@@ -11,6 +11,9 @@ const gameState = (function() {
         if (boardData[index] === '') {
             boardData[index] = marker;
             events.emit('boardDataChanged', boardData);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -44,10 +47,11 @@ const gameState = (function() {
 
     function processClick(index) {
         const marker = getMarker();
-        updateGameBoardData(index, marker);
-        plays++;
-        checkBoardFilled();
-        checkForWinner();
+        if (updateGameBoardData(index, marker)) {
+            plays++;
+            checkBoardFilled();
+            checkForWinner();
+        }
     }
 
     function resetEntries() {
