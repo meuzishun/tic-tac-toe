@@ -9,6 +9,11 @@ const gameButtons = (function() {
         events.emit('newGame', null);
     }
 
+    function showAndEnableStartGameBtn() {
+        startGameBtn.classList.remove('hide-btn');
+        startGameBtn.addEventListener('click', startGame);
+    }
+
     function hideAndDisableNewGameBtn() {
         newGameBtn.classList.remove('hide');
         newGameBtn.addEventListener('click', showAndEnableNewGameBtn);
@@ -19,9 +24,7 @@ const gameButtons = (function() {
         startGameBtn.removeEventListener('click', startGame);
         startGameBtn.classList.add('hide');
     }
-
-    startGameBtn.addEventListener('click', startGame);
-
+    events.on('namesEntered', showAndEnableStartGameBtn);
     events.on('gameOver', hideAndDisableNewGameBtn);
 
 })();

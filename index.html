@@ -12,6 +12,7 @@
     <script src="js/resultsOverlay.js" defer></script>
     <script src="js/gameMessages.js" defer></script>
     <script src="js/gameButtons.js" defer></script>
+    <script src="js/players.js" defer></script>
     <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -22,11 +23,27 @@
         <main>
             <section class="game-container">
                 <div class="button-container">
-                    <button class="startGame-btn">Start Game</button>
-                    <button class="newGame-btn hide">New Game</button>
-                    <button class="rematch-btn hide">Rematch</button>
+                    <button class="startGame-btn hide-btn">Start Game</button>
+                    <button class="newGame-btn hide-btn">New Game</button>
+                    <button class="rematch-btn hide-btn">Rematch</button>
                 </div>
-                <div class="gameboard hide">
+                <div class="player-container player1-container">
+                    <div class="form-container">
+                        <label for="player1-name">Player 1 (X) name:</label>
+                        <input type="text" id="player1-name">
+                    </div>
+                    <p class="player-label player1-label"></p>
+                    <p class="player-count"></p>
+                </div>
+                <div class="player-container player2-container">
+                    <div class="form-container">
+                        <label for="player2-name">Player 2 (O) name:</label>
+                        <input type="text" id="player2-name">
+                    </div>
+                    <p class="player-label player2-label"></p>
+                    <p class="player-count"></p>
+                </div>
+                <div class="gameboard hide-board">
                     <div class="cell"></div>
                     <div class="cell"></div>
                     <div class="cell"></div>
@@ -38,18 +55,18 @@
                     <div class="cell"></div>
                     <div class="overlay">
                         <div class="rows">
-                            <div class="row topRow hideLine"></div>
-                            <div class="row middleRow hideLine"></div>
-                            <div class="row bottomRow hideLine"></div>
+                            <div class="row topRow hide-line"></div>
+                            <div class="row middleRow hide-line"></div>
+                            <div class="row bottomRow hide-line"></div>
                         </div>
                         <div class="columns">
-                            <div class="column leftColumn hideLine"></div>
-                            <div class="column centerColumn hideLine"></div>
-                            <div class="column rightColumn hideLine"></div>
+                            <div class="column leftColumn hide-line"></div>
+                            <div class="column centerColumn hide-line"></div>
+                            <div class="column rightColumn hide-line"></div>
                         </div>
                         <div class="diagonals">
-                            <div class="diagonal leftRightDiagonal hideLine"></div>
-                            <div class="diagonal rightleftDiagonal hideLine"></div>
+                            <div class="diagonal leftRightDiagonal hide-line"></div>
+                            <div class="diagonal rightleftDiagonal hide-line"></div>
                         </div>
                     </div>
                 </div>
