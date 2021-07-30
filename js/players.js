@@ -1,5 +1,5 @@
 (function() {
-    const gameContainer = document.querySelector('.game-container');
+    // const gameContainer = document.querySelector('.game-container');
 
     const player1container = gameContainer.querySelector('.player1-container');
     const player1form = player1container.querySelector('.form-container');
@@ -20,12 +20,23 @@
     function setupNames() {
         player1label.textContent = `${player1input.value} (X)`;
         player2label.textContent = `${player2input.value} (O)`;
+        player1input.value = '';
+        player2input.value = '';
         player1form.classList.add('hide-form');
         player2form.classList.add('hide-form');
     }
 
-    events.on('startGame', setupNames)
+    function reset() {
+        player1label.textContent = '';
+        player2label.textContent = '';
+        player1form.classList.remove('hide-form');
+        player2form.classList.remove('hide-form');
+    }
+
+    events.on('startGame', setupNames);
+    events.on('newGame', reset);
 
     player1input.addEventListener('input', checkForNames);
     player2input.addEventListener('input', checkForNames);
+    
 })();

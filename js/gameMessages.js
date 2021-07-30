@@ -1,5 +1,5 @@
 const gameMessages = (function() {
-    const gameContainer = document.querySelector('.game-container');
+    // const gameContainer = document.querySelector('.game-container');
     const messageDisplay = gameContainer.querySelector('.message-display');
 
     function displayResults(winner) {
@@ -14,7 +14,8 @@ const gameMessages = (function() {
         messageDisplay.textContent = '';
     }
 
-    events.on('newGame', clearDisplay);
     events.on('winnerFound', displayResults);
+    events.on('rematch', clearDisplay);
+    events.on('newGame', clearDisplay);
 
 })();

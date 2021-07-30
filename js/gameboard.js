@@ -1,14 +1,19 @@
 const gameboard = (function() {
-    const gameContainer = document.querySelector('.game-container');
+    // const gameContainer = document.querySelector('.game-container');
     const gameboard = gameContainer.querySelector('.gameboard');
     const cells = gameboard.querySelectorAll('.cell');
 
     function showGameboard() {
-        gameboard.classList.remove('hide');
-        gameboard.addEventListener('click', handleCellClick);
+        gameboard.classList.remove('hide-board');
+        enableBoardClicks();
     }
     
-    function handleCellClick(evt) {
+    function hideGameboard() {
+        gameboard.classList.add('hide-board');
+        disableBoardClicks();
+    }
+    
+    function handleBoardClick(evt) {
         let cellIndex = [...cells].indexOf(evt.target);
         events.emit('gameboardClicked', cellIndex);
     }
@@ -20,16 +25,17 @@ const gameboard = (function() {
     }
     
     function disableBoardClicks() {
-        gameboard.removeEventListener('click', handleCellClick);
+        gameboard.removeEventListener('click', handleBoardClick);
     }
     
     function enableBoardClicks() {
-        gameboard.addEventListener('click', handleCellClick);
+        gameboard.addEventListener('click', handleBoardClick);
     }
     
     events.on('startGame', showGameboard);
     events.on('boardDataChanged', mapDataToBoard);
     events.on('gameOver', disableBoardClicks);
-    events.on('newGame', enableBoardClicks);
+    events.on('rematch', enableBoardClicks);
+    events.on('newGame', hideGameboard);
 
 })();
