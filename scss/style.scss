@@ -86,21 +86,28 @@ body {
 				.player-container {
 					display: flex;
 					flex-direction: column;
-					
+					align-content: center;
+
 					.hide-form {
 						display: none;
 					}
 
 					.player-label {
 						font-size: 2rem;
+						text-align: center;
 					}
 
-					// .player-count {}
+					.player-count {
+						text-align: center;
+					}
 				}
 
 				.player1-container {
 					grid-area: player1;
-					justify-self: flex-end;
+
+					.form-container {
+						align-self: flex-end;
+					}
 				}
 				
 				.player2-container {
