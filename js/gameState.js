@@ -1,10 +1,16 @@
 const gameState = (function() {
     const boardData = new Array(9).fill('');
-    const letters = ['X', 'O'];
+    // const letters = ['X', 'O'];
+    let players;
     let plays = 0;
 
+    function importPlayers(data) {
+        players = data;
+    }
+
     function getMarker() {
-        return letters[plays % 2];
+        // return letters[plays % 2];
+        return players[plays % 2].marker;
     }
     
     function updateGameBoardData(index, marker) {
@@ -31,8 +37,11 @@ const gameState = (function() {
 
         for (const lineName in winningLines) {
             if (winningLines[lineName].every((item, index, array) => item !== '' && item === array[0])) {
+                const winningMarker = winningLines[lineName][0];
+                const winner = players.find(player => player.marker === winningMarker);
                 events.emit('rowOfThree', lineName);
-                events.emit('winnerFound', winningLines[lineName][0]);
+                // events.emit('winnerFound', winningLines[lineName][0]);
+                events.emit('winnerFound', winner);
                 events.emit('gameOver', null);
             }
         }
@@ -40,7 +49,7 @@ const gameState = (function() {
     
     function checkBoardFilled() {
         if (boardData.every(item => item !== '')) {
-            events.emit('winnerFound', null);
+            // events.emit('winnerFound', null);
             events.emit('gameOver', null);
         }
     }
@@ -49,8 +58,8 @@ const gameState = (function() {
         const marker = getMarker();
         if (updateGameBoardData(index, marker)) {
             plays++;
-            checkBoardFilled();
             checkForWinner();
+            checkBoardFilled();
         }
     }
 
@@ -60,6 +69,7 @@ const gameState = (function() {
         plays = 0;
     }
 
+    events.on('playersSet', importPlayers);
     events.on('gameboardClicked', processClick);
     events.on('rematch', resetEntries);
     events.on('newGame', resetEntries);

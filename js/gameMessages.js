@@ -2,19 +2,27 @@ const gameMessages = (function() {
     // const gameContainer = document.querySelector('.game-container');
     const messageDisplay = gameContainer.querySelector('.message-display');
 
-    function displayResults(winner) {
+    let winner = null;
+
+    function storeWinner(data) {
+        winner = data;
+    }
+
+    function displayResults() {
         if (!winner) {
             messageDisplay.textContent = `It's a draw`;
         } else {
-            messageDisplay.textContent = `${winner} wins!`;
+            messageDisplay.textContent = `${winner.name} wins!`;
         }
     }
 
     function clearDisplay() {
         messageDisplay.textContent = '';
+        winner = null;
     }
 
-    events.on('winnerFound', displayResults);
+    events.on('winnerFound', storeWinner);
+    events.on('gameOver', displayResults);
     events.on('rematch', clearDisplay);
     events.on('newGame', clearDisplay);
 
