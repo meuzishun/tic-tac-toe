@@ -1,6 +1,4 @@
 (function() {
-    // const gameContainer = document.querySelector('.game-container');
-
     const player1container = gameContainer.querySelector('.player1-container');
     const player1form = player1container.querySelector('.form-container');
     const player1input = player1container.querySelector('#player1-name');

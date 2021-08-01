@@ -1,5 +1,4 @@
-const gameMessages = (function() {
-    // const gameContainer = document.querySelector('.game-container');
+(function() {
     const messageDisplay = gameContainer.querySelector('.message-display');
 
     let winner = null;

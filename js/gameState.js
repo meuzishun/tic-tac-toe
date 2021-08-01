@@ -1,4 +1,4 @@
-const gameState = (function() {
+(function() {
     let players;
     let plays = 0;
 
