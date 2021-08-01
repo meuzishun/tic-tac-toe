@@ -1,18 +1,12 @@
-const gameboard = (function() {
-    // const gameContainer = document.querySelector('.game-container');
+(function() {
     const gameboard = gameContainer.querySelector('.gameboard');
     const cells = gameboard.querySelectorAll('.cell');
-
-    function showGameboard() {
+    
+    function startGame() {
         gameboard.classList.remove('hide-board');
-        enableBoardClicks();
+        gameboard.addEventListener('click', handleBoardClick);
     }
-    
-    function hideGameboard() {
-        gameboard.classList.add('hide-board');
-        disableBoardClicks();
-    }
-    
+
     function handleBoardClick(evt) {
         let cellIndex = [...cells].indexOf(evt.target);
         events.emit('gameboardClicked', cellIndex);
@@ -23,19 +17,24 @@ const gameboard = (function() {
             cells[index].textContent = entry;
         });
     }
-    
-    function disableBoardClicks() {
+
+    function gameOver() {
         gameboard.removeEventListener('click', handleBoardClick);
     }
     
-    function enableBoardClicks() {
+    function rematch() {
         gameboard.addEventListener('click', handleBoardClick);
     }
+
+    function newGame() {
+        gameboard.removeEventListener('click', handleBoardClick);
+        gameboard.classList.add('hide-board');
+    }
     
-    events.on('startGame', showGameboard);
+    events.on('startGame', startGame);
     events.on('boardDataChanged', mapDataToBoard);
-    events.on('gameOver', disableBoardClicks);
-    events.on('rematch', enableBoardClicks);
-    events.on('newGame', hideGameboard);
+    events.on('gameOver', gameOver);
+    events.on('rematch', rematch);
+    events.on('newGame', newGame);
 
 })();
