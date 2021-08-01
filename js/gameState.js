@@ -1,38 +1,26 @@
 const gameState = (function() {
-    const boardData = new Array(9).fill('');
-    // const letters = ['X', 'O'];
     let players;
     let plays = 0;
 
-    function importPlayers(data) {
-        players = data;
+    function importPlayers(arrayOfPlayers) {
+        players = arrayOfPlayers;
     }
 
-    function getMarker() {
-        // return letters[plays % 2];
-        return players[plays % 2].marker;
-    }
-    
-    function updateGameBoardData(index, marker) {
-        if (boardData[index] === '') {
-            boardData[index] = marker;
-            events.emit('boardDataChanged', boardData);
-            return true;
-        } else {
-            return false;
-        }
+    function changePlayer() {
+        const player = players[plays % 2];
+        events.emit('playerChange', player);
     }
 
-    function checkForWinner() {
+    function checkForWinner(gameboardData) {
         const winningLines = {
-            topRow: [boardData[0], boardData[1], boardData[2]],
-            middleRow: [boardData[3], boardData[4], boardData[5]],
-            bottomRow: [boardData[6], boardData[7], boardData[8]],
-            leftColumn: [boardData[0], boardData[3], boardData[6]],
-            centerColumn: [boardData[1], boardData[4], boardData[7]],
-            rightColumn: [boardData[2], boardData[5], boardData[8]],
-            leftRightDiagonal: [boardData[0], boardData[4], boardData[8]],
-            rightleftDiagonal: [boardData[2], boardData[4], boardData[6]]
+            topRow: [gameboardData[0], gameboardData[1], gameboardData[2]],
+            middleRow: [gameboardData[3], gameboardData[4], gameboardData[5]],
+            bottomRow: [gameboardData[6], gameboardData[7], gameboardData[8]],
+            leftColumn: [gameboardData[0], gameboardData[3], gameboardData[6]],
+            centerColumn: [gameboardData[1], gameboardData[4], gameboardData[7]],
+            rightColumn: [gameboardData[2], gameboardData[5], gameboardData[8]],
+            leftRightDiagonal: [gameboardData[0], gameboardData[4], gameboardData[8]],
+            rightleftDiagonal: [gameboardData[2], gameboardData[4], gameboardData[6]]
         };
 
         for (const lineName in winningLines) {
@@ -40,38 +28,36 @@ const gameState = (function() {
                 const winningMarker = winningLines[lineName][0];
                 const winner = players.find(player => player.marker === winningMarker);
                 events.emit('rowOfThree', lineName);
-                // events.emit('winnerFound', winningLines[lineName][0]);
                 events.emit('winnerFound', winner);
                 events.emit('gameOver', null);
             }
         }
     }
     
-    function checkBoardFilled() {
-        if (boardData.every(item => item !== '')) {
-            // events.emit('winnerFound', null);
+    function checkBoardFilled(gameboardData) {
+        if (gameboardData.every(item => item !== '')) {
             events.emit('gameOver', null);
         }
     }
 
-    function processClick(index) {
-        const marker = getMarker();
-        if (updateGameBoardData(index, marker)) {
-            plays++;
-            checkForWinner();
-            checkBoardFilled();
-        }
+    function processClick() {
+        changePlayer();
+        plays++;
     }
 
-    function resetEntries() {
-        boardData.fill('');
-        events.emit('boardDataChanged', boardData);
+    function checkBoardStatus(gameboardData) {
+        checkForWinner(gameboardData);
+        checkBoardFilled(gameboardData);
+    }
+
+    function resetPlaysNum() {
         plays = 0;
     }
 
     events.on('playersSet', importPlayers);
     events.on('gameboardClicked', processClick);
-    events.on('rematch', resetEntries);
-    events.on('newGame', resetEntries);
+    events.on('boardDataChanged', checkBoardStatus);
+    events.on('rematch', resetPlaysNum);
+    events.on('newGame', resetPlaysNum);
 
 })();
