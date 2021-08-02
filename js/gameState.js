@@ -33,21 +33,10 @@
             }
         }
     }
-    
-    function checkBoardFilled(gameboardData) {
-        if (gameboardData.every(item => item !== '')) {
-            events.emit('gameOver', null);
-        }
-    }
 
     function processClick() {
         changePlayer();
         plays++;
-    }
-
-    function checkBoardStatus(gameboardData) {
-        checkForWinner(gameboardData);
-        checkBoardFilled(gameboardData);
     }
 
     function resetPlaysNum() {
@@ -56,7 +45,7 @@
 
     events.on('playersSet', importPlayers);
     events.on('gameboardClicked', processClick);
-    events.on('boardDataChanged', checkBoardStatus);
+    events.on('boardDataChanged', checkForWinner);
     events.on('rematch', resetPlaysNum);
     events.on('newGame', resetPlaysNum);
 
