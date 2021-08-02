@@ -49,9 +49,6 @@
             }
         });
     }
-
-    // events.on('rematch', hideAllLines);
-    // events.on('newGame', hideAllLines);
     
     events.on('startGame', startGame);
     events.on('boardDataChanged', mapDataToBoard);
