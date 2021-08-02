@@ -6,9 +6,9 @@
         players = arrayOfPlayers;
     }
 
-    function changePlayer() {
+    function getPlayer() {
         const player = players[plays % 2];
-        events.emit('playerChange', player);
+        events.emit('playerSent', player);
     }
 
     function checkForWinner(gameboardData) {
@@ -34,8 +34,8 @@
         }
     }
 
-    function processClick() {
-        changePlayer();
+    function nextTurn() {
+        getPlayer();
         plays++;
     }
 
@@ -44,7 +44,7 @@
     }
 
     events.on('playersSet', importPlayers);
-    events.on('gameboardClicked', processClick);
+    events.on('acceptedClick', nextTurn);
     events.on('boardDataChanged', checkForWinner);
     events.on('rematch', resetPlaysNum);
     events.on('newGame', resetPlaysNum);
