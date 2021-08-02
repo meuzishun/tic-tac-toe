@@ -1,6 +1,7 @@
 (function() {
     const gameboard = gameContainer.querySelector('.gameboard');
     const cells = gameboard.querySelectorAll('.cell');
+    const lines = gameboard.querySelectorAll('.row, .column, .diagonal');
     
     function startGame() {
         gameboard.classList.remove('hide-board');
@@ -23,16 +24,38 @@
     }
     
     function rematch() {
+        hideAllLines();
         gameboard.addEventListener('click', handleBoardClick);
     }
 
     function newGame() {
+        hideAllLines();
         gameboard.removeEventListener('click', handleBoardClick);
         gameboard.classList.add('hide-board');
     }
+
+    function showWinningLine(lineName) {
+        lines.forEach(line => {
+            if (line.classList.contains(lineName)) {
+                line.classList.remove('hide-line');
+            }
+        });
+    }
+
+    function hideAllLines() {
+        lines.forEach(line => {
+            if (!line.classList.contains('hide-line')) {
+                line.classList.add('hide-line');
+            }
+        });
+    }
+
+    // events.on('rematch', hideAllLines);
+    // events.on('newGame', hideAllLines);
     
     events.on('startGame', startGame);
     events.on('boardDataChanged', mapDataToBoard);
+    events.on('rowOfThree', showWinningLine);
     events.on('gameOver', gameOver);
     events.on('rematch', rematch);
     events.on('newGame', newGame);
