@@ -46,6 +46,7 @@
         lines.forEach(line => {
             if (line.classList.contains(lineName)) {
                 line.classList.remove('hide-line');
+                gameboard.removeEventListener('click', handleBoardClick);
             }
         });
     }

@@ -1,6 +1,8 @@
 (function() {
+    const messageDisplay = gameContainer.querySelector('.message-display');
     let players;
     let plays = 0;
+    let winner = null;
 
     function importPlayers(arrayOfPlayers) {
         players = arrayOfPlayers;
@@ -9,6 +11,10 @@
     function getPlayer() {
         const player = players[plays % 2];
         events.emit('playerSent', player);
+    }
+
+    function storeWinner(data) {
+        winner = data;
     }
 
     function checkForWinner(gameboardData) {
@@ -28,10 +34,26 @@
                 const winningMarker = winningLines[lineName][0];
                 const winner = players.find(player => player.marker === winningMarker);
                 events.emit('rowOfThree', lineName);
+                storeWinner(winner);
                 events.emit('winnerFound', winner);
                 events.emit('gameOver', null);
+                displayResults();
             }
         }
+    }
+
+    function displayResults() {
+        if (!winner) {
+            messageDisplay.textContent = `It's a draw`;
+        } else {
+            messageDisplay.textContent = `${winner.name} wins!`;
+        }
+    }
+
+    function reset() {
+        plays = 0;
+        messageDisplay.textContent = '';
+        winner = null;
     }
 
     function nextTurn() {
@@ -39,14 +61,11 @@
         plays++;
     }
 
-    function resetPlaysNum() {
-        plays = 0;
-    }
-
     events.on('playersSet', importPlayers);
     events.on('acceptedClick', nextTurn);
     events.on('boardDataChanged', checkForWinner);
-    events.on('rematch', resetPlaysNum);
-    events.on('newGame', resetPlaysNum);
+    // events.on('gameOver', displayResults);
+    events.on('rematch', reset);
+    events.on('newGame', reset);
 
 })();
