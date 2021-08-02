@@ -64,7 +64,6 @@
     events.on('playersSet', importPlayers);
     events.on('acceptedClick', nextTurn);
     events.on('boardDataChanged', checkForWinner);
-    // events.on('gameOver', displayResults);
     events.on('rematch', reset);
     events.on('newGame', reset);
 
