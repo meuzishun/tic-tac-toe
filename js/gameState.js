@@ -1,23 +1,41 @@
-(function() {
-    const messageDisplay = gameContainer.querySelector('.message-display');
-    let players;
+const gameState = (function() {
+    const gameboardData = new Array(9).fill('');
     let plays = 0;
-    let winner = null;
-
+    let players = [
+        {
+            marker: 'X'
+        },
+        {
+            marker: 'O'
+        }
+    ];
     function importPlayers(arrayOfPlayers) {
         players = arrayOfPlayers;
     }
+    let currentPlayer;
+    let winner = null;
 
-    function getPlayer() {
-        const player = players[plays % 2];
-        events.emit('playerSent', player);
+    function setCurrentPlayer() {
+        currentPlayer = players[plays % 2];
+    }
+    
+    function updateGameboardData(index) {
+        gameboardData[index] = currentPlayer.marker;
+        events.emit('gameboardDataChanged', gameboardData);
+    }
+    
+    function processPlay(index) {
+        setCurrentPlayer();
+        if (gameboardData[index] === '') { //? Could we do this check in gameboard?
+            updateGameboardData(index);
+            plays++;
+            checkForWinner();
+            checkBoardFilled();
+        }
     }
 
-    function storeWinner(data) {
-        winner = data;
-    }
-
-    function checkForWinner(gameboardData) {
+    function checkForWinner() {
+        //TODO: there HAS to be a more efficient way of checking the data 
         const winningLines = {
             topRow: [gameboardData[0], gameboardData[1], gameboardData[2]],
             middleRow: [gameboardData[3], gameboardData[4], gameboardData[5]],
@@ -32,39 +50,41 @@
         for (const lineName in winningLines) {
             if (winningLines[lineName].every((item, index, array) => item !== '' && item === array[0])) {
                 const winningMarker = winningLines[lineName][0];
-                const winner = players.find(player => player.marker === winningMarker);
+                winner = players.find(player => player.marker === winningMarker);
+                winner.wins++;
                 events.emit('rowOfThree', lineName);
-                storeWinner(winner);
-                events.emit('winnerFound', winner);
+                // events.emit('winnerFound', winner);
                 events.emit('gameOver', null);
-                displayResults();
             }
         }
     }
 
-    function displayResults() {
-        if (!winner) {
-            messageDisplay.textContent = `It's a draw`;
-        } else {
-            messageDisplay.textContent = `${winner.name} wins!`;
+    function checkBoardFilled() {
+        if (gameboardData.every(item => item !== '')) {
+            events.emit('gameOver', null);
         }
+    }
+    
+    function clearBoard() {
+        gameboardData.fill('');
+        events.emit('gameboardDataChanged', gameboardData);
     }
 
     function reset() {
         plays = 0;
-        messageDisplay.textContent = '';
+        clearBoard();
         winner = null;
     }
 
-    function nextTurn() {
-        getPlayer();
-        plays++;
-    }
-
     events.on('playersSet', importPlayers);
-    events.on('acceptedClick', nextTurn);
-    events.on('boardDataChanged', checkForWinner);
+    events.on('gameboardClicked', processPlay);
     events.on('rematch', reset);
     events.on('newGame', reset);
+
+    return {
+        gameboardData,
+        processPlay,
+        clearBoard
+    }
 
 })();

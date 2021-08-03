@@ -15,7 +15,10 @@
         return {
             name: name,
             marker: marker,
-            wins: 0
+            wins: 0,
+            addWin: function() {
+                this.wins++;
+            }
         }
     }
 
