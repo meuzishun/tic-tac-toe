@@ -36,9 +36,10 @@ body {
 				display: grid;
 				grid-gap: 1rem;
 				grid-template-columns: repeat(3, 1fr);
-				grid-template-rows: 1fr 4fr 1fr;
+				grid-template-rows: 1fr 1fr 4fr 1fr;
 				grid-template-areas:
 					'buttons buttons buttons'
+					'input input input'
 					'player1 gameboard player2'
 					'results results results';
 
@@ -76,6 +77,35 @@ body {
 					.hide-btn {
 						display: none;
 					}
+				}
+
+				.player-setup-container {
+					grid-area: input;
+					display: flex;
+					flex-direction: row;
+					width: 100%;
+					height: 100%;
+					align-items: center;
+					justify-content: space-evenly;
+
+					.player-form {
+						label {
+							font-size: 1.5rem;
+						}
+
+						input {
+							font-size: 1.3rem;
+							padding: 0.5rem;
+						}
+					}
+
+					.hide-form {
+						display: none;
+					}
+				}
+
+				.hide-container {
+					display: none;
 				}
 
 				.player-container {

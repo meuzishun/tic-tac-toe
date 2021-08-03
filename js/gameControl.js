@@ -1,4 +1,4 @@
-(function() {
+gameControl = (function() {
     const startGameBtn = gameContainer.querySelector('.startGame-btn');
     const rematchBtn = gameContainer.querySelector('.rematch-btn');
     const newGameBtn = gameContainer.querySelector('.newGame-btn');
