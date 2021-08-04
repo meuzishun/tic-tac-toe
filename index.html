@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="css/style.min.css">
     <script src="js/events.js" defer></script>
     <script src="js/gameContainer.js" defer></script>
+    <script src="js/player.js" defer></script>
     <script src="js/gameState.js" defer></script>
+    <script src="js/input.js" defer></script>
     <script src="js/gameboard.js" defer></script>
-    <script src="js/gameButtons.js" defer></script>
-    <script src="js/players.js" defer></script>
+    <script src="js/gameControl.js" defer></script>
 </head>
 <body>
     <div class="main-wrapper">
@@ -28,19 +29,19 @@
                 <div class="player-setup-container">
                     <div class="player-form">
                         <label for="player1-name">Player 1 (X) name:</label>
-                        <input type="text" id="player1-name">
+                        <input type="text" class="player-name-input" id="player1-name">
                     </div>
                     <div class="player-form">
                         <label for="player2-name">Player 2 (O) name:</label>
-                        <input type="text" id="player2-name">
+                        <input type="text" class="player-name-input" id="player2-name">
                     </div>
                 </div>
-                <div class="player-container player1-container">
-                    <p class="player-label player1-label"></p>
+                <div class="player-container playerX-container">
+                    <p class="player-label playerX-label"></p>
                     <p class="win-count"></p>
                 </div>
-                <div class="player-container player2-container">
-                    <p class="player-label player2-label"></p>
+                <div class="player-container playerO-container">
+                    <p class="player-label playerO-label"></p>
                     <p class="win-count"></p>
                 </div>
                 <div class="gameboard hide-board">

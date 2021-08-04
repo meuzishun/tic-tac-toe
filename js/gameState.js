@@ -1,16 +1,10 @@
 const gameState = (function() {
     const gameboardData = new Array(9).fill('');
     let plays = 0;
-    let players = [
-        {
-            marker: 'X'
-        },
-        {
-            marker: 'O'
-        }
-    ];
-    function importPlayers(arrayOfPlayers) {
-        players = arrayOfPlayers;
+    let players = [];
+    function importPlayer(player) {
+        players.push(player);
+        console.log(players);
     }
     let currentPlayer;
     let winner = null;
@@ -20,7 +14,7 @@ const gameState = (function() {
     }
     
     function updateGameboardData(index) {
-        gameboardData[index] = currentPlayer.marker;
+        gameboardData[index] = currentPlayer.getMarker();
         events.emit('gameboardDataChanged', gameboardData);
     }
     
@@ -50,8 +44,9 @@ const gameState = (function() {
         for (const lineName in winningLines) {
             if (winningLines[lineName].every((item, index, array) => item !== '' && item === array[0])) {
                 const winningMarker = winningLines[lineName][0];
-                winner = players.find(player => player.marker === winningMarker);
-                winner.wins++;
+                winner = players.find(player => player.getMarker() === winningMarker);
+                winner.addWin();
+                winner.updateWinDisplay();
                 events.emit('rowOfThree', lineName);
                 // events.emit('winnerFound', winner);
                 events.emit('gameOver', null);
@@ -70,16 +65,25 @@ const gameState = (function() {
         events.emit('gameboardDataChanged', gameboardData);
     }
 
-    function reset() {
+    function rematch() {
         plays = 0;
         clearBoard();
         winner = null;
     }
 
-    events.on('playersSet', importPlayers);
+    function newGame() {
+        players.forEach(player => player.clear());
+        players = [];
+        plays = 0;
+        clearBoard();
+        winner = null;
+    }
+
+    // events.on('playersSet', importPlayers);
+    events.on('newPlayer', importPlayer);
     events.on('gameboardClicked', processPlay);
-    events.on('rematch', reset);
-    events.on('newGame', reset);
+    events.on('rematch', rematch);
+    events.on('newGame', newGame);
 
     return {
         gameboardData,

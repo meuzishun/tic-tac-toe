@@ -37,10 +37,7 @@ body {
 				grid-gap: 1rem;
 				grid-template-columns: repeat(3, 1fr);
 				grid-template-rows: 1fr 1fr 4fr 1fr;
-				grid-template-areas:
-					'buttons buttons buttons'
-					'input input input'
-					'player1 gameboard player2'
+				grid-template-areas: 'buttons buttons buttons' 'input input input' 'player1 gameboard player2'
 					'results results results';
 
 				.button-container {
@@ -58,12 +55,12 @@ body {
 						border: none;
 						border-radius: 0.3rem;
 					}
-					
+
 					.startGame-btn {
 						background-color: rgb(95, 116, 199);
 						color: white;
 					}
-					
+
 					.newGame-btn {
 						background-color: rgb(95, 199, 95);
 						color: white;
@@ -106,6 +103,8 @@ body {
 
 				.hide-container {
 					display: none;
+					height: 0;
+					width: 0;
 				}
 
 				.player-container {
@@ -139,18 +138,17 @@ body {
 					}
 				}
 
-				.player1-container {
+				.playerX-container {
 					grid-area: player1;
 
 					.form-container {
-						align-self: flex-end;
+						// align-self: flex-end;
 					}
 				}
-				
-				.player2-container {
+
+				.playerO-container {
 					grid-area: player2;
 				}
-
 
 				.gameboard {
 					grid-area: gameboard;
@@ -172,14 +170,16 @@ body {
 							background-color: rgba(0, 102, 255, 0.098);
 						}
 					}
-					
+
 					.overlay {
 						position: absolute;
 						width: 100%;
 						height: 100%;
 						z-index: -1;
 
-						.rows, .columns, .diagonals {
+						.rows,
+						.columns,
+						.diagonals {
 							position: absolute;
 							width: 100%;
 							height: 100%;
@@ -188,13 +188,15 @@ body {
 							justify-content: space-around;
 						}
 
-						.row, .column, .diagonal {
+						.row,
+						.column,
+						.diagonal {
 							background-color: black;
 						}
-						
+
 						.rows {
 							flex-direction: column;
-							
+
 							.row {
 								width: 90%;
 								height: 4px;
@@ -221,21 +223,21 @@ body {
 						.diagonals {
 							flex-direction: row;
 							position: relative;
-							
+
 							.diagonal {
 								width: 115%;
 								height: 4px;
 								position: absolute;
 							}
-							
+
 							.leftRightDiagonal {
-								transform: rotateZ(43deg) ;
+								transform: rotateZ(43deg);
 							}
-							
+
 							.rightleftDiagonal {
 								transform: rotateZ(-43deg);
 							}
-							
+
 							.hide-line {
 								background-color: rgba(0, 0, 0, 0);
 							}
@@ -250,7 +252,7 @@ body {
 				.hide-board {
 					display: none;
 				}
-				
+
 				.message-display {
 					grid-area: results;
 					width: 100%;
