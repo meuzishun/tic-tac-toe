@@ -1,6 +1,6 @@
 (function() {
-    const playerSetupContainer = gameContainer.querySelector('.player-setup-container');
-    const playerNameInputs = [...playerSetupContainer.querySelectorAll('.player-name-input')];
+    const setupContainer = gameContainer.querySelector('.player-setup-container');
+    const playerNameInputs = [...setupContainer.querySelectorAll('.player-name-input')];
 
     playerNameInputs.forEach(input => input.addEventListener('input', validateNameInputs));
 
@@ -18,11 +18,11 @@
             events.emit('newPlayer', player);
         });
         playerNameInputs.forEach(input => input.value = '');
-        playerSetupContainer.classList.add('hide-container');
+        setupContainer.classList.add('hide-container');
     }
 
     function newGame() {
-        playerSetupContainer.classList.remove('hide-container');
+        setupContainer.classList.remove('hide-container');
     }
 
     events.on('startGame', sendNames);
