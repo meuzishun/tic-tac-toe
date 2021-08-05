@@ -46,9 +46,9 @@ const gameState = (function() {
                 const winningMarker = winningLines[lineName][0];
                 winner = players.find(player => player.getMarker() === winningMarker);
                 winner.addWin();
-                winner.updateWinDisplay();
+                // winner.updateWinDisplay();
+                players.forEach(player => player.updateWinDisplay());
                 events.emit('rowOfThree', lineName);
-                // events.emit('winnerFound', winner);
                 events.emit('gameOver', null);
             }
         }

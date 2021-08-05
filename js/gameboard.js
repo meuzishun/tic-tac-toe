@@ -1,10 +1,12 @@
 gameboard = (function() {
+    const gameContainer = document.querySelector('.game-container');
     const gameboard = gameContainer.querySelector('.gameboard');
     const cells = gameboard.querySelectorAll('.cell');
-    const lines = gameboard.querySelectorAll('.row, .column, .diagonal');
+    const overlay = gameContainer.querySelector('.overlay');
+    const lines = overlay.querySelectorAll('.row, .column, .diagonal');
     
     function startGame() {
-        gameboard.classList.remove('hide-board');
+        gameContainer.classList.remove('hide');
         gameboard.addEventListener('click', handleBoardClick);
     }
 
@@ -23,7 +25,7 @@ gameboard = (function() {
     function showWinningLine(lineName) {
         lines.forEach(line => {
             if (line.classList.contains(lineName)) {
-                line.classList.remove('hide-line');
+                line.classList.add('show');
                 gameboard.removeEventListener('click', handleBoardClick);
             }
         });
@@ -31,8 +33,8 @@ gameboard = (function() {
 
     function hideAllLines() {
         lines.forEach(line => {
-            if (!line.classList.contains('hide-line')) {
-                line.classList.add('hide-line');
+            if (line.classList.contains('show')) {
+                line.classList.remove('show');
             }
         });
     }
@@ -49,7 +51,7 @@ gameboard = (function() {
     function newGame() {
         hideAllLines();
         gameboard.removeEventListener('click', handleBoardClick);
-        gameboard.classList.add('hide-board');
+        gameContainer.classList.add('hide');
     }
     
     events.on('startGame', startGame);

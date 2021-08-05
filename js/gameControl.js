@@ -1,15 +1,16 @@
 gameControl = (function() {
-    const startGameBtn = gameContainer.querySelector('.startGame-btn');
-    const rematchBtn = gameContainer.querySelector('.rematch-btn');
-    const newGameBtn = gameContainer.querySelector('.newGame-btn');
+    const btnContainer = document.querySelector('.button-container');
+    const startGameBtn = btnContainer.querySelector('.startGame-btn');
+    const rematchBtn = btnContainer.querySelector('.rematch-btn');
+    const newGameBtn = btnContainer.querySelector('.newGame-btn');
     
     function showAndEnableBtn(btn, cb) {
-        btn.classList.remove('hide-btn');
+        btn.classList.remove('hide');
         btn.addEventListener('click', cb);
     }
 
     function hideAndDisableBtn(btn, cb) {
-        btn.classList.add('hide-btn');
+        btn.classList.add('hide');
         btn.removeEventListener('click', cb);
     }
 

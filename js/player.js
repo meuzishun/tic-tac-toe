@@ -1,7 +1,7 @@
 function createPlayer(name, marker) {
     let wins = 0;
-    const labelContainer = gameContainer.querySelector(`.player${marker}-label`);
-    const winsCount = gameContainer.querySelector(`.player${marker}-container .win-count`);
+    const labelContainer = document.querySelector(`.player${marker}-label`);
+    const winsCount = document.querySelector(`.player${marker}-container .win-count`);
 
     const getMarker = function() {
         return marker;
