@@ -1,6 +1,20 @@
-(function() {
-    const inputContainer = document.querySelector('.name-input-container');
+const inputs = (function() {
+    const inputContainer = document.querySelector('.setup-container');
+    const playerSelections = inputContainer.querySelectorAll('.person-selection');
+    const computerSelections = inputContainer.querySelectorAll('.computer-selection');
     const nameInputs = [...inputContainer.querySelectorAll('.player-name-input')];
+
+    playerSelections.forEach(selection => {
+        selection.addEventListener('input', function() {
+            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.remove('hide');
+        });
+    });
+    
+    computerSelections.forEach(selection => {
+        selection.addEventListener('input', function() {
+            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.add('hide');
+        });
+    });
 
     nameInputs.forEach(input => input.addEventListener('input', validateNameInputs));
 
@@ -30,4 +44,7 @@
     events.on('startGame', sendNames);
     events.on('newGame', newGame);
 
+    return {
+        // showHideInputs
+    }
 })();

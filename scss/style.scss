@@ -25,7 +25,7 @@ body {
 		}
 
 		section.button-container {
-			width: 50%;
+			width: 30%;
 			height: 12%;
 			margin: 0 auto;
 			display: flex;
@@ -57,23 +57,61 @@ body {
 			}
 		}
 
-		section.name-input-container {
+		section.setup-container {
 			width: 75%;
-			margin: 3rem auto;
+			margin: 1.5rem auto;
 			display: flex;
 			justify-content: space-around;
 
-			label {
-				font-size: 1.5rem;
+			div.player-form {
+				width: 30%;
+
+				h2 {
+					font-size: 2rem;
+					font-weight: normal;
+					margin: 1rem 0;
+				}
+
+				div.player-type-container {
+					display: flex;
+					margin: 1rem 0;
+
+					div.player-type {
+						display: flex;
+						align-items: center;
+						padding-right: 2rem;
+
+						input {
+							margin-right: 0.3rem;
+						}
+
+						label {
+							font-size: 1.4rem;
+						}
+					}
+				}
+
+				div.name-input-container {
+					label {
+						font-size: 1.5rem;
+					}
+	
+					input {
+						font-size: 1.3rem;
+						padding: 0.5rem;
+					}
+				}
+
+				div.name-input-container.hide {
+					display: none;
+				}
+
 			}
 
-			input {
-				font-size: 1.3rem;
-				padding: 0.5rem;
-			}
+
 		}
 
-		section.name-input-container.hide {
+		section.setup-container.hide {
 			display: none;
 		}
 

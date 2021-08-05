@@ -26,14 +26,41 @@
             <button class="rematch-btn hide">Rematch</button>
         </section>
 
-        <section class="name-input-container">
+        <section class="setup-container">
             <div class="player-form">
-                <label for="player1-name">Player 1 (X) name:</label>
-                <input type="text" class="player-name-input" id="player1-name">
+                <h2>Player 1 (X)</h2>
+                <div class="player-type-container">
+                    <div class="player-type">
+                        <input type="radio" name="player1" class="person-selection" id="person1" checked>
+                        <label for="person1">Person</label>
+                    </div>
+                    <div class="player-type">
+                        <input type="radio" name="player1" class="computer-selection" id="computer1">
+                        <label for="computer1">Computer</label>
+                    </div>
+                </div>
+                <div class="name-input-container">
+                    <label for="player1-name">Name:</label>
+                    <input type="text" class="player-name-input" id="player1-name">
+                </div>
             </div>
+
             <div class="player-form">
-                <label for="player2-name">Player 2 (O) name:</label>
-                <input type="text" class="player-name-input" id="player2-name">
+                <h2>Player 2 (O)</h2>
+                <div class="player-type-container">
+                    <div class="player-type">
+                        <input type="radio" name="player2" class="person-selection" id="person2">
+                        <label for="person2">Person</label>
+                    </div>
+                    <div class="player-type">
+                        <input type="radio" name="player2" class="computer-selection" id="computer2" checked>
+                        <label for="computer2">Computer</label>
+                    </div>
+                </div>
+                <div class="name-input-container hide">
+                    <label for="player2-name">Name:</label>
+                    <input type="text" class="player-name-input" id="player2-name">
+                </div>
             </div>
         </section>
 
