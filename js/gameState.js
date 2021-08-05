@@ -82,6 +82,7 @@ const gameState = (function() {
 
     events.on('newPlayer', importPlayer);
     events.on('gameboardClicked', processPlay);
+    events.on('AIchoice', processPlay);
     events.on('rematch', rematch);
     events.on('newGame', newGame);
 
