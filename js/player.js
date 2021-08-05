@@ -3,6 +3,10 @@ function createPlayer(name, marker) {
     const labelContainer = document.querySelector(`.player${marker}-label`);
     const winsCount = document.querySelector(`.player${marker}-container .win-count`);
 
+    const getName = function() {
+        return name;
+    }
+
     const getMarker = function() {
         return marker;
     }
@@ -23,6 +27,7 @@ function createPlayer(name, marker) {
     labelContainer.textContent = `${name} (${marker})`;
 
     return {
+        getName,
         getMarker,
         addWin,
         updateWinDisplay,
