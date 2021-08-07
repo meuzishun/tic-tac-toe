@@ -1,23 +1,19 @@
 const AI = (function() {
-    let possibleMoves;
+    let emptyCells;
 
     function findEmptyCells(gameboardData) {
-        return gameboardData
+        emptyCells = gameboardData
             .map((item, index) => item === '' ? index : null)
             .filter(item => item !== null);
     }
 
-    function reportEmpty(gameboardData) {
-        possibleMoves = findEmptyCells(gameboardData);
-    }
-
     function makeRandomChoice() {
-        const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-        const choice = possibleMoves[randomIndex];
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const choice = emptyCells[randomIndex];
         events.emit('AIchoice', choice);
     }
 
-    events.on('gameboardDataChanged', reportEmpty);
+    events.on('gameboardDataChanged', findEmptyCells);
 
     return {
         makeRandomChoice

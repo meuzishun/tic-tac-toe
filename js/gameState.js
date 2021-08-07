@@ -8,6 +8,7 @@ const gameState = (function() {
     }
     let currentPlayer;
     let winner = null;
+    let winnerName = null;
 
     function setCurrentPlayer() {
         currentPlayer = players[plays % 2];
@@ -46,8 +47,9 @@ const gameState = (function() {
                 const winningMarker = winningLines[lineName][0];
                 winner = players.find(player => player.getMarker() === winningMarker);
                 winner.addWin();
+                winnerName = winner.getName();
                 players.forEach(player => player.updateWinDisplay());
-                events.emit('winnerDeclared', winner.getName());
+                events.emit('winnerDeclared', winnerName);
                 events.emit('rowOfThree', lineName);
                 events.emit('gameOver', null);
             }
@@ -57,7 +59,7 @@ const gameState = (function() {
     function checkBoardFilled() {
         if (gameboardData.every(item => item !== '')) {
             events.emit('gameOver', null);
-            events.emit('winnerDeclared', null);
+            events.emit('winnerDeclared', winnerName);
         }
     }
     
@@ -70,14 +72,16 @@ const gameState = (function() {
         plays = 0;
         clearBoard();
         winner = null;
+        winnerName = null;
     }
-
+    
     function newGame() {
         players.forEach(player => player.clear());
         players = [];
         plays = 0;
         clearBoard();
         winner = null;
+        winnerName = null;
     }
 
     events.on('newPlayer', importPlayer);

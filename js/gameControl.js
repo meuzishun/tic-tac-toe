@@ -40,7 +40,7 @@ gameControl = (function() {
         hideAndDisableBtn(rematchBtn, rematch);
     }
 
-    events.on('namesEntered', enableStart);
+    events.on('playersReady', enableStart);
     events.on('gameOver', endGame);
 
 })();

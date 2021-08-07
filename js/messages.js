@@ -9,7 +9,7 @@
         messageDisplay.textContent = message;
     }
 
-    function displayWinner(winnerName) {
+    function declareWinner(winnerName) {
         displayMessage(formatMessage(winnerName));
     }
 
@@ -17,7 +17,7 @@
         messageDisplay.textContent = '';
     }
 
-    events.on('winnerDeclared', displayWinner);
+    events.on('winnerDeclared', declareWinner);
     events.on('rematch', clearMessage);
     events.on('newGame', clearMessage);
 })();

@@ -1,27 +1,43 @@
 const inputs = (function() {
     const inputContainer = document.querySelector('.setup-container');
+    const playerForms = inputContainer.querySelectorAll('.player-form');
+    const typeContainers = [...inputContainer.querySelectorAll('.player-type-container')];
+    const selections = [...inputContainer.querySelectorAll('.selection')];
     const playerSelections = inputContainer.querySelectorAll('.person-selection');
     const computerSelections = inputContainer.querySelectorAll('.computer-selection');
     const nameInputs = [...inputContainer.querySelectorAll('.player-name-input')];
 
     playerSelections.forEach(selection => {
         selection.addEventListener('input', function() {
-            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.remove('hide');
+            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.add('show');
         });
     });
     
     computerSelections.forEach(selection => {
         selection.addEventListener('input', function() {
-            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.add('hide');
+            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.remove('show');
         });
     });
 
-    nameInputs.forEach(input => input.addEventListener('input', validateNameInputs));
-
-    function validateNameInputs() {
-        if (nameInputs.every(input => input.value !== '')) {
-            events.emit('namesEntered', null);
+    selections.forEach(selection => selection.addEventListener('input', () => {
+        if (playersChosen()) {
+            events.emit('playersReady', null);
         }
+    }));
+
+    // nameInputs.forEach(input => input.addEventListener('input', validateNameInputs));
+
+    // function validateNameInputs() {
+    //     if (nameInputs.every(input => input.value !== '')) {
+    //         events.emit('playersReady', null);
+    //     }
+    // }
+
+    function playersChosen() {
+        return typeContainers.every(container => {
+            const inputs = [...container.querySelectorAll('input')];
+            return inputs.some(input => input.checked)
+        });
     }
 
     function sendNames() {
@@ -46,5 +62,6 @@ const inputs = (function() {
 
     return {
         // showHideInputs
+        playersChosen
     }
 })();
