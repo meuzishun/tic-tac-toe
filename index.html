@@ -21,7 +21,8 @@
             <h1>Tic-Tac-Toe</h1>
         </header>
 
-        <form class="setup-form">
+        <!-- <form class="setup-form"> -->
+        <form class="setup-form hide">
             <div class="player-inputs player-X" data-marker="X">
                 <h2>Player 1 (X)</h2>
                 <div class="player-type-container">
@@ -55,7 +56,8 @@
             <input type="submit" class="startGame-btn hide" value="Start Game"></input>
         </form>
         
-        <section class="game-container hide">
+        <!-- <section class="game-container hide"> -->
+        <section class="game-container">
             <div class="player-container playerX-container">
                 <p class="player-label playerX-label"></p>
                 <p class="win-count"></p>
@@ -80,20 +82,20 @@
 
             <div class="overlay">
                 <div class="rows">
-                    <div class="row topRow"></div>
-                    <div class="row middleRow"></div>
-                    <div class="row bottomRow"></div>
+                    <div class="row topRow show"></div>
+                    <div class="row middleRow show"></div>
+                    <div class="row bottomRow show"></div>
                 </div>
 
                 <div class="columns">
-                    <div class="column leftColumn"></div>
-                    <div class="column centerColumn"></div>
-                    <div class="column rightColumn"></div>
+                    <div class="column leftColumn show"></div>
+                    <div class="column centerColumn show"></div>
+                    <div class="column rightColumn show"></div>
                 </div>
 
                 <div class="diagonals">
-                    <div class="diagonal leftRightDiagonal"></div>
-                    <div class="diagonal rightleftDiagonal"></div>
+                    <div class="diagonal leftRightDiagonal show"></div>
+                    <div class="diagonal rightleftDiagonal show"></div>
                 </div>
             </div>
 
