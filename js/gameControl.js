@@ -1,6 +1,5 @@
 gameControl = (function() {
     const btnContainer = document.querySelector('.button-container');
-    // const startGameBtn = btnContainer.querySelector('.startGame-btn');
     const rematchBtn = btnContainer.querySelector('.rematch-btn');
     const newGameBtn = btnContainer.querySelector('.newGame-btn');
     
@@ -17,11 +16,6 @@ gameControl = (function() {
     function enableStart() {
         showAndEnableBtn(startGameBtn, startGame);
     }
-
-    // function startGame() {
-    //     events.emit('startGame', null);
-    //     hideAndDisableBtn(startGameBtn, startGame);
-    // }
 
     function endGame() {
         showAndEnableBtn(rematchBtn, rematch);
