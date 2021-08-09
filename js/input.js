@@ -3,8 +3,6 @@ const setupForm = (function() {
     const personSelections = setupForm.querySelectorAll('.person-selection');
     const computerSelections = setupForm.querySelectorAll('.computer-selection');
 
-    // On both radio buttons for the person option, we listen for selection.  Once selected, the HTML for the name input is created (don't forget the required attribute).  If unselected, the recently created HTML is deleted.
-
     // FOR COMPUTER VS PERSON
     function createNameInput(marker) {
         const nameInputContainer = document.createElement('div');
@@ -50,8 +48,6 @@ const setupForm = (function() {
 
 
     // SUBMITTING THE DATA
-    // let formData = [];
-
     function parseInput(playerInput) {
         const marker = playerInput.dataset.marker;
         const inputs = [...playerInput.querySelectorAll('input')];
@@ -72,7 +68,6 @@ const setupForm = (function() {
         
         const player = createPlayer(obj);
         events.emit('newPlayer', player);
-        // formData.push(obj);
     }
 
     function storeFormData(form) {
@@ -82,10 +77,6 @@ const setupForm = (function() {
             parseInput(playerInput);
         });
     }
-
-    // function clearFormData() {
-    //     formData = [];
-    // }
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -101,9 +92,6 @@ const setupForm = (function() {
 
     setupForm.addEventListener('submit', handleSubmit);
 
-    events.on('newGame', newGame)
+    events.on('newGame', newGame);
 
-    // return {
-    //     formData
-    // }
 })();
