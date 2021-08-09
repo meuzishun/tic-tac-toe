@@ -1,5 +1,4 @@
 function createPlayer(obj) {
-    // console.log(obj);
     let wins = 0;
     const playerContainer = document.querySelector(`.player${obj.marker}-container`);
     const label = playerContainer.querySelector('.player-label');
