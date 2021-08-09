@@ -66,7 +66,7 @@ const gameState = (function() {
                 winner.addWin();
                 winnerName = winner.getName();
                 players.forEach(player => player.updateWinDisplay());
-                events.emit('winnerDeclared', winnerName);
+                events.emit('winnerDeclared', winner);
                 events.emit('rowOfThree', lineName);
                 events.emit('gameOver', null);
                 return true;
