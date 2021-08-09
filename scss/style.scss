@@ -116,40 +116,17 @@ body {
 
 		section.game-container {
 			width: 75%;
+			height: 90%;
 			margin: 0 auto;
 			display: grid;
 			grid-template-columns: 1fr 2fr 1fr;
-			grid-template-rows: 1fr;
-			grid-template-areas: 'playerX board playerO';
+			grid-template-rows: 450px 100px 100px;
+			grid-template-areas:
+				'playerX board playerO'
+				'display display display'
+				'buttons buttons buttons';
 
-			div.button-container {
-				width: 30%;
-				height: 12%;
-				margin: 0 auto;
-				display: flex;
-				justify-content: space-around;
-	
-				button {
-					font-size: 1.2rem;
-					margin: 1.5rem;
-					padding: 0.5rem 1rem;
-					border: none;
-					border-radius: 0.3rem;
-					color: white;
-				}
-	
-				.newGame-btn {
-					background-color: rgb(95, 199, 95);
-				}
-	
-				.rematch-btn {
-					background-color: rgb(199, 95, 95);
-				}
-	
-				button.hide {
-					display: none;
-				}
-			}
+			
 
 			div.player-container {
 				display: flex;
@@ -257,21 +234,52 @@ body {
 					background-color: black;
 				}
 			}
+
+			div.message-display {
+				grid-area: display;
+				// width: 50%;
+				margin: 0 auto;
+				padding: 2rem;
+
+				p.message {
+					font-size: 2.5rem;
+					text-align: center;
+				}
+			}
+
+			div.button-container {
+				grid-area: buttons;
+				// width: 50%;
+				// height: 12%;
+				margin: 0 auto;
+				display: flex;
+				justify-content: space-around;
+	
+				button {
+					font-size: 1.2rem;
+					margin: 1.5rem;
+					padding: 0.5rem 1rem;
+					border: none;
+					border-radius: 0.3rem;
+					color: white;
+				}
+	
+				.newGame-btn {
+					background-color: rgb(95, 199, 95);
+				}
+	
+				.rematch-btn {
+					background-color: rgb(199, 95, 95);
+				}
+	
+				button.hide {
+					display: none;
+				}
+			}
 		}
 
 		section.game-container.hide {
 			display: none;
-		}
-
-		section.message-display {
-			width: 50%;
-			margin: 0 auto;
-			padding: 2rem;
-
-			p.message {
-				font-size: 2.5rem;
-				text-align: center;
-			}
 		}
 	}
 }

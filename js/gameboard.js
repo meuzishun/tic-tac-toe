@@ -7,19 +7,31 @@ gameboard = (function() {
     
     function startGame() {
         gameContainer.classList.remove('hide');
-        // gameboard.addEventListener('click', handleBoardClick);
     }
-
+    
     function checkPlayer(currentPlayer) {
         if (currentPlayer.getType() === 'person') {
-            console.log('we have a person here!'); //! Getting error here
+            gameboard.addEventListener('click', handleBoardClick);
         }
     }
-
+    
+    function gameboardOn() {
+        console.log('Turning gameboard on...');
+        gameboard.addEventListener('click', handleBoardClick);
+        console.log('Gameboard on.');
+    }
+    
+    function gameboardOff() {
+        console.log('Turning gameboard off...');
+        gameboard.removeEventListener('click', handleBoardClick);
+        console.log('Gameboard off.');
+    }
+    
     function handleBoardClick(evt) {
         let index = [...cells].indexOf(evt.target);
         //? Could we do a check for a marker here instead?
         events.emit('gameboardClicked', index);
+        // gameboard.removeEventListener('click', handleBoardClick);
     }
 
     function mapDataToBoard(gameboardData) {
@@ -61,7 +73,9 @@ gameboard = (function() {
     }
     
     events.on('startGame', startGame);
-    events.on('currentPlayerChanged', checkPlayer)
+    // events.on('currentPlayerChanged', checkPlayer);
+    events.on('personTurn', gameboardOn);
+    events.on('computerTurn', gameboardOff);
     events.on('gameboardDataChanged', mapDataToBoard);
     events.on('rowOfThree', showWinningLine);
     events.on('gameOver', endGame);

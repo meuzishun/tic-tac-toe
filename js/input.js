@@ -50,7 +50,7 @@ const setupForm = (function() {
 
 
     // SUBMITTING THE DATA
-    let formData = [];
+    // let formData = [];
 
     function parseInput(playerInput) {
         const marker = playerInput.dataset.marker;
@@ -66,9 +66,12 @@ const setupForm = (function() {
         if (playerType === 'person') {
             const text = inputs.filter(input => input.type === 'text');
             obj.name = text[0].value;
+        } else {
+            obj.name = 'Computer';
         }
         
         const player = createPlayer(obj);
+        events.emit('newPlayer', player);
         // formData.push(obj);
     }
 
@@ -80,9 +83,9 @@ const setupForm = (function() {
         });
     }
 
-    function clearFormData() {
-        formData = [];
-    }
+    // function clearFormData() {
+    //     formData = [];
+    // }
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -92,9 +95,15 @@ const setupForm = (function() {
         events.emit('startGame', null);
     }
 
+    function newGame() {
+        setupForm.classList.remove('hide');
+    }
+
     setupForm.addEventListener('submit', handleSubmit);
 
-    return {
-        formData
-    }
+    events.on('newGame', newGame)
+
+    // return {
+    //     formData
+    // }
 })();
