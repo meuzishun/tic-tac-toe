@@ -24,49 +24,35 @@ body {
 			}
 		}
 
-		section.button-container {
-			width: 30%;
-			height: 12%;
-			margin: 0 auto;
-			display: flex;
-			justify-content: space-around;
+		form.setup-form {
+			width: 75%;
+			margin: 1.5rem auto;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(2, 1fr);
+			grid-template-areas: 
+			'playerX playerO'
+			'button button';
+			align-items: center;
+			justify-items: center;
 
-			button {
+			.startGame-btn {
 				font-size: 1.2rem;
 				margin: 1.5rem;
 				padding: 0.5rem 1rem;
 				border: none;
 				border-radius: 0.3rem;
+				grid-area: button;
+				background-color: rgb(95, 116, 199);
 				color: white;
 			}
 
-			.startGame-btn {
-				background-color: rgb(95, 116, 199);
-			}
-
-			.newGame-btn {
-				background-color: rgb(95, 199, 95);
-			}
-
-			.rematch-btn {
-				background-color: rgb(199, 95, 95);
-			}
-
-			button.hide {
-				display: none;
-			}
-		}
-
-		section.setup-container {
-			width: 75%;
-			margin: 1.5rem auto;
-			display: flex;
-			justify-content: space-around;
-
-			div.player-form {
-				width: 30%;
+			div.player-inputs {
+				width: 50%;
+				height: 160px;
 
 				h2 {
+					width: 100%;
 					font-size: 2rem;
 					font-weight: normal;
 					margin: 1rem 0;
@@ -92,8 +78,10 @@ body {
 				}
 
 				div.name-input-container {
-					display: none;
-					
+					display: flex;
+					align-items: center;
+					gap: 1rem;
+
 					label {
 						font-size: 1.5rem;
 					}
@@ -104,16 +92,25 @@ body {
 					}
 				}
 
-				div.name-input-container.show {
-					display: block;
-				}
+				// div.name-input-container.show {
+				// 	display: flex;
+				// }
 
 			}
+
+			div.player-X {
+				grid-area: playerX;
+			}
+			
+			div.player-O {
+				grid-area: playerO;
+			}
+			
 
 
 		}
 
-		section.setup-container.hide {
+		form.setup-form.hide {
 			display: none;
 		}
 
@@ -124,6 +121,35 @@ body {
 			grid-template-columns: 1fr 2fr 1fr;
 			grid-template-rows: 1fr;
 			grid-template-areas: 'playerX board playerO';
+
+			div.button-container {
+				width: 30%;
+				height: 12%;
+				margin: 0 auto;
+				display: flex;
+				justify-content: space-around;
+	
+				button {
+					font-size: 1.2rem;
+					margin: 1.5rem;
+					padding: 0.5rem 1rem;
+					border: none;
+					border-radius: 0.3rem;
+					color: white;
+				}
+	
+				.newGame-btn {
+					background-color: rgb(95, 199, 95);
+				}
+	
+				.rematch-btn {
+					background-color: rgb(199, 95, 95);
+				}
+	
+				button.hide {
+					display: none;
+				}
+			}
 
 			div.player-container {
 				display: flex;

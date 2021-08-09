@@ -1,18 +1,24 @@
-function createPlayer(name, marker) {
+function createPlayer(obj) {
+    // console.log(obj);
     let wins = 0;
-    const labelContainer = document.querySelector(`.player${marker}-label`);
-    const winsCount = document.querySelector(`.player${marker}-container .win-count`);
-
-    const getName = function() {
-        return name;
-    }
+    const playerContainer = document.querySelector(`.player${obj.marker}-container`);
+    const label = playerContainer.querySelector('.player-label');
+    const winCount = playerContainer.querySelector('.win-count');
 
     const getMarker = function() {
-        return marker;
+        return obj.marker;
+    }
+
+    const getType = function() {
+        return obj.playerType;
+    }
+
+    const getName = function() {
+        return obj.name;
     }
 
     const updateWinDisplay = function() {
-        winsCount.textContent = wins;
+        winCount.textContent = wins;
     }
 
     const addWin = function() {
@@ -20,15 +26,16 @@ function createPlayer(name, marker) {
     }
 
     const clear = function() {
-        labelContainer.textContent = '';
-        winsCount.textContent = '';
+        label.textContent = '';
+        winCount.textContent = '';
     }
 
-    labelContainer.textContent = `${name} (${marker})`;
+    label.textContent = `${obj.name || obj.playerType.toUpperCase()} (${obj.marker})`;
 
     return {
-        getName,
         getMarker,
+        getType,
+        getName,
         addWin,
         updateWinDisplay,
         clear

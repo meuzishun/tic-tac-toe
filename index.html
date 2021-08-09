@@ -8,73 +8,69 @@
     <link rel="stylesheet" href="css/style.min.css">
     <script src="js/events.js" defer></script>
     <script src="js/player.js" defer></script>
+    <script src="js/input.js" defer></script>
     <script src="js/gameState.js" defer></script>
     <script src="js/gameControl.js" defer></script>
-    <script src="js/input.js" defer></script>
     <script src="js/gameboard.js" defer></script>
     <script src="js/messages.js" defer></script>
     <script src="js/AI.js" defer></script>
 </head>
 <body>
     <main class="main-wrapper">
-
         <header class="main-header">
             <h1>Tic-Tac-Toe</h1>
         </header>
 
-        <section class="button-container">
-            <button class="newGame-btn hide">New Game</button>
-            <button class="startGame-btn hide">Start Game</button>
-            <button class="rematch-btn hide">Rematch</button>
-        </section>
-
-        <section class="setup-container">
-            <div class="player-form">
+        <form class="setup-form">
+            <div class="player-inputs player-X" data-marker="X">
                 <h2>Player 1 (X)</h2>
                 <div class="player-type-container">
                     <div class="player-type">
-                        <input type="radio" name="player1" class="selection person-selection" id="person1">
-                        <label for="person1">Person</label>
+                        <input type="radio" name="playerX" class="selection person-selection" id="personX" data-player="person">
+                        <label for="personX">Person</label>
                     </div>
+
                     <div class="player-type">
-                        <input type="radio" name="player1" class="selection computer-selection" id="computer1">
-                        <label for="computer1">Computer</label>
+                        <input type="radio" name="playerX" class="selection computer-selection" id="computerX" data-player="computer">
+                        <label for="computerX">Computer</label>
                     </div>
-                </div>
-                <div class="name-input-container">
-                    <label for="player1-name">Name:</label>
-                    <input type="text" class="player-name-input" id="player1-name">
                 </div>
             </div>
-
-            <div class="player-form">
+            
+            <div class="player-inputs player-O" data-marker="O">
                 <h2>Player 2 (O)</h2>
                 <div class="player-type-container">
                     <div class="player-type">
-                        <input type="radio" name="player2" class="selection person-selection" id="person2">
-                        <label for="person2">Person</label>
+                        <input type="radio" name="playerO" class="selection person-selection" id="personO" data-player="person">
+                        <label for="personO">Person</label>
                     </div>
+
                     <div class="player-type">
-                        <input type="radio" name="player2" class="selection computer-selection" id="computer2">
-                        <label for="computer2">Computer</label>
+                        <input type="radio" name="playerO" class="selection computer-selection" id="computerO" data-player="computer">
+                        <label for="computerO">Computer</label>
                     </div>
-                </div>
-                <div class="name-input-container">
-                    <label for="player2-name">Name:</label>
-                    <input type="text" class="player-name-input" id="player2-name">
                 </div>
             </div>
-        </section>
-
+            
+            <input type="submit" class="startGame-btn hide" value="Start Game"></input>
+        </form>
+        
         <section class="game-container hide">
+            <div class="button-container">
+                <button class="newGame-btn hide">New Game</button>
+                <button class="rematch-btn hide">Rematch</button>
+            </div>
+
             <div class="player-container playerX-container">
                 <p class="player-label playerX-label"></p>
                 <p class="win-count"></p>
             </div>
+
             <div class="player-container playerO-container">
                 <p class="player-label playerO-label"></p>
                 <p class="win-count"></p>
             </div>
+
             <div class="gameboard">
                 <div class="cell"></div>
                 <div class="cell"></div>
@@ -86,26 +82,29 @@
                 <div class="cell"></div>
                 <div class="cell"></div>
             </div>
+
             <div class="overlay">
                 <div class="rows">
                     <div class="row topRow"></div>
                     <div class="row middleRow"></div>
                     <div class="row bottomRow"></div>
                 </div>
+
                 <div class="columns">
                     <div class="column leftColumn"></div>
                     <div class="column centerColumn"></div>
                     <div class="column rightColumn"></div>
                 </div>
+
                 <div class="diagonals">
                     <div class="diagonal leftRightDiagonal"></div>
                     <div class="diagonal rightleftDiagonal"></div>
                 </div>
             </div>
-        </section>
 
-        <section class="message-display">
-            <p class="message"></p>
+            <div class="message-display">
+                <p class="message"></p>
+            </div>
         </section>
     </main>
 </body>

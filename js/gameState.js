@@ -5,6 +5,7 @@ const gameState = (function() {
     function importPlayer(player) {
         players.push(player);
         console.log(players);
+        setCurrentPlayer();
     }
     let currentPlayer;
     let winner = null;
@@ -12,6 +13,12 @@ const gameState = (function() {
 
     function setCurrentPlayer() {
         currentPlayer = players[plays % 2];
+        events.emit('currentPlayerChanged', currentPlayer);
+        //? Is this where we addClickListener or request to AI?
+    }
+
+    function startGame() {
+        setCurrentPlayer();
     }
     
     function updateGameboardData(index) {
@@ -20,12 +27,13 @@ const gameState = (function() {
     }
     
     function processPlay(index) {
-        setCurrentPlayer();
+        // setCurrentPlayer();
         if (gameboardData[index] === '') { //? Could we do this check in gameboard?
             updateGameboardData(index);
-            plays++;
             checkForWinner();
             checkBoardFilled();
+            plays++;
+            setCurrentPlayer();
         }
     }
 
@@ -73,6 +81,7 @@ const gameState = (function() {
         clearBoard();
         winner = null;
         winnerName = null;
+        setCurrentPlayer();
     }
     
     function newGame() {
@@ -85,6 +94,7 @@ const gameState = (function() {
     }
 
     events.on('newPlayer', importPlayer);
+    events.on('startGame', startGame);
     events.on('gameboardClicked', processPlay);
     events.on('AIchoice', processPlay);
     events.on('rematch', rematch);

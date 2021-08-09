@@ -7,7 +7,13 @@ gameboard = (function() {
     
     function startGame() {
         gameContainer.classList.remove('hide');
-        gameboard.addEventListener('click', handleBoardClick);
+        // gameboard.addEventListener('click', handleBoardClick);
+    }
+
+    function checkPlayer(currentPlayer) {
+        if (currentPlayer.getType() === 'person') {
+            console.log('we have a person here!'); //! Getting error here
+        }
     }
 
     function handleBoardClick(evt) {
@@ -55,6 +61,7 @@ gameboard = (function() {
     }
     
     events.on('startGame', startGame);
+    events.on('currentPlayerChanged', checkPlayer)
     events.on('gameboardDataChanged', mapDataToBoard);
     events.on('rowOfThree', showWinningLine);
     events.on('gameOver', endGame);

@@ -1,67 +1,100 @@
-const inputs = (function() {
-    const inputContainer = document.querySelector('.setup-container');
-    const playerForms = inputContainer.querySelectorAll('.player-form');
-    const typeContainers = [...inputContainer.querySelectorAll('.player-type-container')];
-    const selections = [...inputContainer.querySelectorAll('.selection')];
-    const playerSelections = inputContainer.querySelectorAll('.person-selection');
-    const computerSelections = inputContainer.querySelectorAll('.computer-selection');
-    const nameInputs = [...inputContainer.querySelectorAll('.player-name-input')];
+const setupForm = (function() {
+    const setupForm = document.querySelector('.setup-form');
+    const personSelections = setupForm.querySelectorAll('.person-selection');
+    const computerSelections = setupForm.querySelectorAll('.computer-selection');
 
-    playerSelections.forEach(selection => {
-        selection.addEventListener('input', function() {
-            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.add('show');
-        });
-    });
-    
-    computerSelections.forEach(selection => {
-        selection.addEventListener('input', function() {
-            this.parentElement.parentElement.parentElement.querySelector('.name-input-container').classList.remove('show');
-        });
-    });
+    // On both radio buttons for the person option, we listen for selection.  Once selected, the HTML for the name input is created (don't forget the required attribute).  If unselected, the recently created HTML is deleted.
 
-    selections.forEach(selection => selection.addEventListener('input', () => {
-        if (playersChosen()) {
-            events.emit('playersReady', null);
+    // FOR COMPUTER VS PERSON
+    function createNameInput(marker) {
+        const nameInputContainer = document.createElement('div');
+        nameInputContainer.classList.add('name-input-container');
+
+        const nameLabel = document.createElement('label');
+        nameLabel.setAttribute('for', `player${marker}-name`);
+        nameLabel.textContent = 'Name:';
+
+        const textInput = document.createElement('input');
+        textInput.setAttribute('type', 'text');
+        textInput.classList.add('player-name-input');
+        textInput.id = `player${marker}-name`;
+        textInput.required = true;
+
+        nameInputContainer.appendChild(nameLabel);
+        nameInputContainer.appendChild(textInput);
+
+        return nameInputContainer;
+    }
+
+    function handlePersonSelection(e) {
+        const selection = e.target;
+        const container = selection.parentElement.parentElement.parentElement;
+        const marker = container.dataset.marker;
+        const nameInput = createNameInput(marker);
+        container.appendChild(nameInput);
+    }
+
+    function handleComputerSelection(e) {
+        const selection = e.target;
+        const container = selection.parentElement.parentElement.parentElement;
+
+        const nameInput = container.querySelector('.name-input-container');
+        if (nameInput) {
+            container.removeChild(nameInput);
         }
-    }));
+    }
 
-    // nameInputs.forEach(input => input.addEventListener('input', validateNameInputs));
+    personSelections.forEach(selection => selection.addEventListener('input', handlePersonSelection));
+    
+    computerSelections.forEach(selection => selection.addEventListener('input', handleComputerSelection));
 
-    // function validateNameInputs() {
-    //     if (nameInputs.every(input => input.value !== '')) {
-    //         events.emit('playersReady', null);
-    //     }
-    // }
 
-    function playersChosen() {
-        return typeContainers.every(container => {
-            const inputs = [...container.querySelectorAll('input')];
-            return inputs.some(input => input.checked)
+    // SUBMITTING THE DATA
+    let formData = [];
+
+    function parseInput(playerInput) {
+        const marker = playerInput.dataset.marker;
+        const inputs = [...playerInput.querySelectorAll('input')];
+        const checked = inputs.filter(input => input.checked);
+        const playerType = checked[0].dataset.player;
+        
+        const obj = {
+            marker,
+            playerType
+        }
+
+        if (playerType === 'person') {
+            const text = inputs.filter(input => input.type === 'text');
+            obj.name = text[0].value;
+        }
+        
+        const player = createPlayer(obj);
+        // formData.push(obj);
+    }
+
+    function storeFormData(form) {
+        const playerInputs = form.querySelectorAll('.player-inputs');
+        
+        playerInputs.forEach(playerInput => {
+            parseInput(playerInput);
         });
     }
 
-    function sendNames() {
-        let names = nameInputs.map(input => input.value);
-        names.forEach((name, index) => {
-            const markers = ['X', 'O'];
-            let player = createPlayer(name, markers[index]);
-            events.emit('newPlayer', player);
-        });
-        nameInputs.forEach(input => input.value = '');
-        inputContainer.classList.add('hide');
-        // gameContainer.classList.remove('hide-game');
+    function clearFormData() {
+        formData = [];
     }
     
-    function newGame() {
-        inputContainer.classList.remove('hide');
-        // gameContainer.classList.add('hide-game');
+    function handleSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        storeFormData(form);
+        setupForm.classList.add('hide');
+        events.emit('startGame', null);
     }
 
-    events.on('startGame', sendNames);
-    events.on('newGame', newGame);
+    setupForm.addEventListener('submit', handleSubmit);
 
     return {
-        // showHideInputs
-        playersChosen
+        formData
     }
 })();
